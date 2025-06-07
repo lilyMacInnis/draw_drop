@@ -1,4 +1,4 @@
-export const singup = (req, res) => {
+export const signup = (req, res) => {
     res.send("signup route");
 };
 
