@@ -5,15 +5,19 @@ import bcrypt from "bcryptjs";
 export const signup = async (req, res) => {
     const {userName, email, password} = req.body;
     try{
-        // check for pass length and existing email
+        // check if all fields entered
+        if(!userName || !email || !password){
+            return res.status(400).json({message: "All fields are required"});
+        }
 
-        if (password.lenght < 6){
+        // check for pass length and existing email
+        if (password.length < 6){
             return res.status(400).json({message: "Password must be at least 6 characters long"});
         }
 
-        const User = await User.findOne({email});
+        const user = await User.findOne({email});
 
-        if(User){
+        if(user){
             return res.status(400).json({message: "Email already exists"});
         }
 
