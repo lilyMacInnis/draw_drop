@@ -10,8 +10,8 @@ router.get("/inbox", protectRoute, getDrawingsSentToUser);
 
 router.get("/sent", protectRoute, getDrawingsSentFromUser);
 
-router.post("/send", sendDrawing);
+router.post("/send/:userId", sendDrawing);
 
-router.delete("/:drawingId", protectRoute, deleteDrawing);
+router.delete("/delete/:drawingId", protectRoute, deleteDrawing);
 
 export default router;

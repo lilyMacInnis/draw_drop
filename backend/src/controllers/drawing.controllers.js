@@ -36,8 +36,30 @@ export const getDrawingsSentFromUser = async (req, res) => {
     }
 };
 
-export const sendDrawing = (req, res) => {
+export const sendDrawing = async (req, res) => {
+    try{
+        const {image, senderId} = req.body;
+        const {userId:receiverId} = req.params;
 
+        let sentFrom;
+        if(senderId){
+            sentFrom = senderId;
+        }
+
+        const newDrawing = new Drawing ({
+            image,
+            receiverId,
+            senderId: sentFrom,
+        });
+
+        await newDrawing.save();
+
+        res.status(201).json(newDrawing);
+
+    } catch (error) {
+        console.log("Error in sendDrawing: ", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
 };
 
 export const deleteDrawing = (req, res) => {
