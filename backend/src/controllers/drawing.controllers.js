@@ -43,7 +43,6 @@ export const sendDrawing = async (req, res) => {
         const {userId:receiverId} = req.params;
 
         let sentFrom;
-        //console.log(req.user._id);
         if(req.user){
             sentFrom = req.user._id;
         }
@@ -57,23 +56,6 @@ export const sendDrawing = async (req, res) => {
         await newDrawing.save();
 
         res.status(201).json(newDrawing);
-        /*const {image, senderId} = req.body;
-        const {userId:receiverId} = req.params;
-
-        let sentFrom;
-        if(senderId){
-            sentFrom = senderId;
-        }
-
-        const newDrawing = new Drawing ({
-            image,
-            receiverId,
-            senderId: sentFrom,
-        });
-
-        await newDrawing.save();
-
-        res.status(201).json(newDrawing);*/
 
     } catch (error) {
         console.log("Error in sendDrawing: ", error.message);
@@ -81,6 +63,15 @@ export const sendDrawing = async (req, res) => {
     }
 };
 
-export const deleteDrawing = (req, res) => {
-
+export const deleteDrawing = async (req, res) => {
+    try{
+        const deletedDrawing = await Drawing.findByIdAndDelete(req.params.drawingId);
+        if(!deleteDrawing){
+            return res.status(400).json({message: "Drawing not found"});
+        }
+        res.status(200).json({message: "Drawing deleted successfully"});
+    } catch (error){
+        console.log("Error in deleteDrawing: ", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
 };
