@@ -1,16 +1,17 @@
 import express from "express";
-import { createDrawing, deleteDrawing, getAllUsers, getDrawingsSentFromUser, getDrawingsSentToUser } from "../controllers/drawing.controllers.js";
+import { sendDrawing, deleteDrawing, getAllUsers, getDrawingsSentFromUser, getDrawingsSentToUser } from "../controllers/drawing.controllers.js";
+import { protectRoute } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get("/users", getAllUsers);
 
-router.get("/to/:userId", getDrawingsSentToUser);
+router.get("/inbox", protectRoute, getDrawingsSentToUser);
 
-router.get("/from/:userId", getDrawingsSentFromUser);
+router.get("/sent", protectRoute, getDrawingsSentFromUser);
 
-router.post("/", createDrawing);
+router.post("/send", sendDrawing);
 
-router.delete("/:drawingId", deleteDrawing);
+router.delete("/:drawingId", protectRoute, deleteDrawing);
 
 export default router;
