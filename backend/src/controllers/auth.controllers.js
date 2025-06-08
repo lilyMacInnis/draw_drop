@@ -88,3 +88,13 @@ export const logout = (req, res) => {
         res.status(500).json({message: "Internal Server Error"});
     }
 };
+
+export const checkAuth = (req, res) => {
+    try{
+        // send authenticated user to client
+        res.status(200).json(req.user);
+    } catch (error) {
+        console.log("Error in checkAuth controller: ", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+};
