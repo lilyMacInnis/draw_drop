@@ -16,6 +16,6 @@ const drawingSchema = new mongoose.Schema(
     {timestamps: true},
 );
 
-const Drawing = mongoose.model("Drawing", userSchema);
+const Drawing = mongoose.model("Drawing", drawingSchema);
 
 export default Drawing;

@@ -38,7 +38,26 @@ export const getDrawingsSentFromUser = async (req, res) => {
 
 export const sendDrawing = async (req, res) => {
     try{
-        const {image, senderId} = req.body;
+
+        const {image} = req.body;
+        const {userId:receiverId} = req.params;
+
+        let sentFrom;
+        //console.log(req.user._id);
+        if(req.user){
+            sentFrom = req.user._id;
+        }
+
+        const newDrawing = new Drawing ({
+            image,
+            receiverId,
+            senderId: sentFrom,
+        });
+
+        await newDrawing.save();
+
+        res.status(201).json(newDrawing);
+        /*const {image, senderId} = req.body;
         const {userId:receiverId} = req.params;
 
         let sentFrom;
@@ -54,7 +73,7 @@ export const sendDrawing = async (req, res) => {
 
         await newDrawing.save();
 
-        res.status(201).json(newDrawing);
+        res.status(201).json(newDrawing);*/
 
     } catch (error) {
         console.log("Error in sendDrawing: ", error.message);
