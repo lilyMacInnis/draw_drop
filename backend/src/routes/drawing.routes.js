@@ -1,5 +1,5 @@
 import express from "express";
-import { createDrawing, deleteDrawing, getAllUsers, getDrawingsSentFromUser, getDrawingsSentToUser } from "../controllers/drawing.controllers";
+import { createDrawing, deleteDrawing, getAllUsers, getDrawingsSentFromUser, getDrawingsSentToUser } from "../controllers/drawing.controllers.js";
 
 const router = express.Router();
 
