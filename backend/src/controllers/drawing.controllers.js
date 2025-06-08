@@ -27,7 +27,7 @@ export const getDrawingsSentToUser = async (req, res) => {
 export const getDrawingsSentFromUser = async (req, res) => {
     try{
         const senderId = req.user._id;
-        const drawings = await Drawing.find({senderId:receiverId});
+        const drawings = await Drawing.find({senderId:senderId});
         res.status(200).json(drawings);
 
     } catch (error){
