@@ -1,4 +1,5 @@
 import express from "express";
+import { createDrawing, deleteDrawing, getAllUsers, getDrawingsSentFromUser, getDrawingsSentToUser } from "../controllers/drawing.controllers";
 
 const router = express.Router();
 
