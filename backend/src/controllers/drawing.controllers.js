@@ -38,7 +38,6 @@ export const getDrawingsSentFromUser = async (req, res) => {
 
 export const sendDrawing = async (req, res) => {
     try{
-
         const {image} = req.body;
         const {userId:receiverId} = req.params;
 
