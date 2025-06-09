@@ -50,7 +50,7 @@ const SignUpPage = () => {
                 <span>Password</span>
                 <input 
                     type={showPassword ? 'text' : 'password'}
-                    placeholder='......'
+                    placeholder='●●●●●●'
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value})}
                 />
