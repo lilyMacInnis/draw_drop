@@ -22,7 +22,7 @@ export const authStore = create((set) => ({
         }
     },
 
-    signup: async (data) => {
+    // signup: async (data) => {
 
-    }
+    // }
 }))
