@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
 import { authStore } from './store/authStore'
+import InboxPage from './pages/InboxPage'
 
 const App = () => {
   const {authUser} = authStore();
@@ -15,8 +16,8 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
+        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
         <Route path="/inbox" element={authUser ? <InboxPage /> : <Navigate to="/login" />} />
 
       </Routes>
