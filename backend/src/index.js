@@ -13,9 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // middleware
-if(process.env.NODE_ENV === "development"){
+if(true){
     app.use(cors({
         origin: "http://localhost:5173",
+        credentials: true
     }));
 }
 app.use(express.json());
