@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
-//import { authStore } from '../store/authStore';
+import { authStore } from '../store/authStore';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import LoopIcon from '@mui/icons-material/Loop';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +14,7 @@ const SignUpPage = () => {
     password: ""
   });
 
-  //const {signup, isSigninUp} = authStore();
+  const {signup, isSigningUp} = authStore();
 
   //const validateForm = () => {
 
@@ -64,6 +65,19 @@ const SignUpPage = () => {
                         <VisibilityIcon />
                     )}
                 </button>
+            </div>
+
+            <div>
+              <button type='submit' disabled={isSigningUp}>
+                {isSigningUp ? (
+                  <>
+                    <LoopIcon className='animate-spin' />
+                    Loading...
+                  </>
+                ) : (
+                  "Create Account"
+                )}
+              </button>
             </div>
         </form>
       </div>
