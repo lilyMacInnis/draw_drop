@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LoopIcon from '@mui/icons-material/Loop';
+//import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,13 +16,38 @@ const SignUpPage = () => {
     password: ""
   });
 
-  const {signup, isSigningUp} = authStore();
+  const {signup, isSigningUp, error} = authStore();
 
-  //const validateForm = () => {
+  const validateForm = () => {
+    if(!formData.userName.trim()){
+      return <div className='text-red-500'>User name is required</div>
+    }
+    if(!formData.email.trim()){
+      return <div className='text-red-500'>Email is required</div>
+    }
+    if(!formData.password){
+      return <div className='text-red-500'>Password is required</div>
+    }
+    if(formData.password.length < 6){
+      return <div className='text-red-500'>Password must be at least 6 characters</div>
+    }
 
-  //};
-  const handleSubmit = (e) => {
+    return true;
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const success = validateForm();
+
+    if(success === true){
+      try{
+        await signup(formData);
+      } catch (error){
+        console.log("Error in signup handlesubmit: ", error);
+      }
+    } else {
+      return success;
+    }
   };
 
   return (
@@ -67,20 +93,23 @@ const SignUpPage = () => {
                     )}
                 </button>
             </div>
-        </form>
 
-        <div>
-          <button type='submit' disabled={isSigningUp}>
-            {isSigningUp ? (
-              <>
-                <LoopIcon className='animate-spin' />
-                Loading...
-              </>
-            ) : (
-              "Create Account"
-            )}
-          </button>
-        </div>
+            {error ?? <p className='text-red-500'>{error}</p>}
+
+            
+            <button type="submit" disabled={isSigningUp}>
+              {isSigningUp ? (
+                <>
+                  <LoopIcon className='animate-spin' />
+                  Loading...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </button>
+            
+
+        </form>
 
         <div>
           <p>
