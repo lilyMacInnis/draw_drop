@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { authStore } from '../store/authStore';
+import {Link} from 'react-router';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -66,20 +67,29 @@ const SignUpPage = () => {
                     )}
                 </button>
             </div>
-
-            <div>
-              <button type='submit' disabled={isSigningUp}>
-                {isSigningUp ? (
-                  <>
-                    <LoopIcon className='animate-spin' />
-                    Loading...
-                  </>
-                ) : (
-                  "Create Account"
-                )}
-              </button>
-            </div>
         </form>
+
+        <div>
+          <button type='submit' disabled={isSigningUp}>
+            {isSigningUp ? (
+              <>
+                <LoopIcon className='animate-spin' />
+                Loading...
+              </>
+            ) : (
+              "Create Account"
+            )}
+          </button>
+        </div>
+
+        <div>
+          <p>
+            Already have an account?
+            <Link to="/login">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )
