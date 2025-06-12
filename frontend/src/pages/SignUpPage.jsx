@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { authStore } from '../store/authStore';
+import { useAuthStore } from '../store/authStore';
 import {Link} from 'react-router';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -16,7 +16,7 @@ const SignUpPage = () => {
     password: ""
   });
 
-  const {signup, isSigningUp, error} = authStore();
+  const {signup, isSigningUp, error} = useAuthStore();
 
   const validateForm = () => {
     if(!formData.userName.trim()){
@@ -41,7 +41,11 @@ const SignUpPage = () => {
 
     if(success === true){
       try{
+        //console.log("formData: ", formData);
         await signup(formData);
+        // console.log("authUser after singup: ", authUser);
+        // console.log("isAuth after signup: ", isAuthenticated);
+        // console.log(isSigningUp);
       } catch (error){
         console.log("Error in signup handlesubmit: ", error);
       }
@@ -119,6 +123,7 @@ const SignUpPage = () => {
             </Link>
           </p>
         </div>
+
       </div>
     </div>
   )

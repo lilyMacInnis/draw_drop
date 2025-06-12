@@ -4,11 +4,11 @@ import { Navigate, Route, Routes } from 'react-router'
 import HomePage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
-import { authStore } from './store/authStore'
+import { useAuthStore } from './store/authStore'
 import InboxPage from './pages/InboxPage'
 
 const App = () => {
-  const {authUser} = authStore();
+  const {authUser} = useAuthStore();
 
   return (
     <div >
