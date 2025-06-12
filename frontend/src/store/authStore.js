@@ -20,7 +20,7 @@ export const useAuthStore = create(
           set({ authUser: res.data, isAuthenticated: true });
 
         } catch (error) {
-          console.log("Error in checkAuth in authStore: ", error);
+          console.log("Error in checkAuth in authStore: ", error.response.data.message);
           // user not authenticated
           set({ authUser: null, isAuthenticated: false });
         } finally {
@@ -38,13 +38,22 @@ export const useAuthStore = create(
           set({ authUser: response.data, isAuthenticated: true });
 
         } catch (error) {
-          console.log("Error in signup in authStore: ", error.message);
+          console.log("Error in signup in authStore: ", error.response.data.message);
           set({
             error: error.response?.data?.message || "Error signing up",
           });
           throw error;
         } finally {
           set({ isSigningUp: false });
+        }
+      },
+
+      logout: async () => {
+        try{
+          await axiosInstance.post("/auth/logout");
+          set({authUser: null});
+        } catch (error){
+          console.log("Error in logout in authStore: ", error.response.data.message);
         }
       },
     }),
