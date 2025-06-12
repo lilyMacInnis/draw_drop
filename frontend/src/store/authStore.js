@@ -29,7 +29,7 @@ export const useAuthStore = create(
       },
 
       signup: async (data) => {
-        console.log("signup function in authstore ran");
+        //console.log("signup function in authstore ran");
         set({ isSigningUp: true });
 
         try {
@@ -45,6 +45,19 @@ export const useAuthStore = create(
           throw error;
         } finally {
           set({ isSigningUp: false });
+        }
+      },
+
+      login: async (data) => {
+        set({isLoggingIn: true});
+
+        try{
+          const response = await axiosInstance.post("/auth/login", data);
+          set({authUser: response.data});
+        } catch (error){
+          console.log("Error in login in authStore: ", error.response.data.message);
+        } finally{
+          set({isLoggingIn: false});
         }
       },
 
