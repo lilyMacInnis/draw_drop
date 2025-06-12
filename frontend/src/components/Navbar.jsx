@@ -15,8 +15,22 @@ const Navbar = () => {
         </div>
 
         <div>
+          {!authUser && (
+            <>
+              <Link to="/login">
+                <span>Login</span>
+              </Link>
+            </>
+          )}
+        </div>
+
+        <div>
           {authUser && (
             <>
+              <Link to="/inbox">
+                <span>Inbox</span>
+              </Link>
+
               <button onClick={logout}>
                 <span>Logout</span>
               </button>
