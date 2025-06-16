@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../store/useAuthStore';
 import {Link} from 'react-router';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

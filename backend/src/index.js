@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
-app.use("/api/drawing", drawingRoutes);
+app.use("/api/draw", drawingRoutes);
 
 app.get("/", (req, res) => {
     res.send("test");
