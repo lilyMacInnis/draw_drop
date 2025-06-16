@@ -10,6 +10,9 @@ export const useDrawStore = create(
             drawingsFromUser: [],
             drawingsToUser: [],
             isLoadingDrawings: false,
+            selectedUser: null,
+
+            setSelectedUser: (selectedUser) => set({selectedUser}),
 
             getUsers: async () => {
                 set({isLoadingUsers: true});
