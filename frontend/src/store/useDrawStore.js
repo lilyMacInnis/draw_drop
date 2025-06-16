@@ -33,6 +33,18 @@ export const useDrawStore = create(
                 } finally{
                     set({isLoadingDrawings: false});
                 }
+            },
+
+            getDrawingsToUser: async () => {
+                set({isLoadingDrawings: true});
+                try{
+                    const res = await axiosInstance.get("/draw/inbox");
+                    set({drawingsToUser: res.data});
+                } catch (error){
+                    console.log("Error in getDrawingsToer in drawStore: ", error.response.data.message);
+                } finally{
+                    set({isLoadingDrawings: false});
+                }
             }
         })
     )
