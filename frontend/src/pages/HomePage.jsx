@@ -10,7 +10,7 @@ const HomePage = () => {
     <div>
       Welome
 
-      <button onClick={navigate('/search')}>
+      <button onClick={() => {navigate('/search')}}>
         click here to send a drawing
       </button>
     </div>
