@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useDrawStore } from '../store/useDrawStore';
+import { useNavigate } from 'react-router';
+import { useAuthStore } from '../store/useAuthStore';
 
 const SendPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [isAnon, setisAnon] = useState(true);
   const {sendDrawing, isSendingDrawing} = useDrawStore();
+  const {authUser} = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -13,17 +17,20 @@ const SendPage = () => {
     try{
       await sendDrawing({
         image: imageUrl,
-        isAnon,
+        isAnon: isAnon
       })
     } catch (error){
       console.log("Failed to send drawing: ", error);
     }
+
+    navigate('/search');
   };
 
   return (
     <div>
-      <form onSubmit={handleSendMessage}>
-        <button onClick={setisAnon(!isAnon)}>
+
+      {authUser && 
+        <button onClick={() => setisAnon(!isAnon)}>
           Anon:
           {
             isAnon ? (
@@ -37,6 +44,10 @@ const SendPage = () => {
             )
           }
         </button>
+      }
+
+      <form onSubmit={handleSendMessage}>
+
         <input
           type='text'
           placeholder='imageurl'
