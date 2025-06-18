@@ -4,12 +4,13 @@ import { persist } from "zustand/middleware";
 
 export const useDrawStore = create(
     persist(
-        (set) => ({
+        (set, get) => ({
             users: [],
             isLoadingUsers: false,
             drawingsFromUser: [],
             drawingsToUser: [],
             isLoadingDrawings: false,
+            isSendingDrawing: false,
             selectedUser: null,
 
             setSelectedUser: (selectedUser) => set({selectedUser}),
@@ -23,6 +24,19 @@ export const useDrawStore = create(
                     console.log("Error in getUsers in drawStore: ", error.response.data.message);
                 } finally{
                     set({isLoadingUsers: false});
+                }
+            },
+
+            sendDrawing: async(drawingData) => {
+                const {selectedUser} = get();
+                set({isSendingDrawing: true});
+                try{
+                    await axiosInstance.post(`/draw/send/${selectedUser._id}`, drawingData);
+                } catch (error){
+                    console.log("Error in sendDrawing in drawStore: ", error.response.data.message);
+                } finally{
+                    set({selectedUser: null});
+                    set({isSendingDrawing: false});
                 }
             },
 
