@@ -11,6 +11,10 @@ const drawingSchema = new mongoose.Schema(
         senderId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+        },
+        isAnon: {
+            type: Boolean,
+            default: true,
         }
     },
     {timestamps: true},
