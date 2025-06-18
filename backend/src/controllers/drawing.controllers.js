@@ -38,7 +38,7 @@ export const getDrawingsSentFromUser = async (req, res) => {
 
 export const sendDrawing = async (req, res) => {
     try{
-        const {image} = req.body;
+        const {image, isAnon} = req.body;
         const {userId:receiverId} = req.params;
 
         let sentFrom;
@@ -49,6 +49,7 @@ export const sendDrawing = async (req, res) => {
         const newDrawing = new Drawing ({
             image,
             receiverId,
+            isAnon,
             senderId: sentFrom,
         });
 
