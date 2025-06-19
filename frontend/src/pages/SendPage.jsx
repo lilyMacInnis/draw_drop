@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDrawStore } from '../store/useDrawStore';
 import { useNavigate } from 'react-router';
 import { useAuthStore } from '../store/useAuthStore';
+import Canvas from '../components/Canvas';
 
 const SendPage = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -72,6 +73,8 @@ const SendPage = () => {
           }
         </button>
       </form>
+
+      <Canvas width={500} height={500} />
     </div>
   )
 }
