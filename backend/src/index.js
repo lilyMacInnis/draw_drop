@@ -19,6 +19,13 @@ if(true){
         credentials: true
     }));
 }
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
+  );
+  next();
+});
 app.use(express.json());
 app.use(cookieParser());
 

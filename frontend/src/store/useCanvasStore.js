@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 export const useCanvasStore = create(
     persist(
-        (set, get) => ({
+        (set) => ({
             brushColor: '#000000',
             brushSize: 5,
             imageUrl: '',

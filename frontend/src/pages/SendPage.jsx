@@ -74,7 +74,7 @@ const SendPage = () => {
         </button>
       </form>
 
-      <Canvas width={500} height={500} />
+      <Canvas width={500} height={500} isAnon={isAnon} />
     </div>
   )
 }
