@@ -44,7 +44,7 @@ const InboxContainer = () => {
                 {
                     (!drawing.isAnon && drawing.senderId) && (
                         <>
-                            sent by: {drawing.senderId}
+                            sent by: {drawing.senderUserName}
                         </>
                     )
                 }

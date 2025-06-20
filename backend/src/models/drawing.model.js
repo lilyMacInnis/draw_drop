@@ -8,9 +8,18 @@ const drawingSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
+        receiverUserName: {
+            type: String,
+            
+            required: true,
+        },
         senderId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+        },
+        senderUserName: {
+            type: String,
+            
         },
         isAnon: {
             type: Boolean,

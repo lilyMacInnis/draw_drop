@@ -12,20 +12,6 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
-export const getUserFromId = async (req, res) => {
-    try{
-        const {id} = req.body;
-        const user = await User.findById(id);
-
-        if(user){
-            res.status(200).json(user)
-        }
-    } catch (error){
-        console.log("Error in getUserFromId: ", error.message);
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
-
 export const getDrawingsSentToUser = async (req, res) => {
     try{
         const receiverId = req.user._id;
@@ -55,21 +41,48 @@ export const sendDrawing = async (req, res) => {
         const {image, isAnon} = req.body;
         const {userId:receiverId} = req.params;
 
-        let sentFrom;
+        let receiverUserName;
+        try{
+            const user = await User.findById(receiverId);
+
+            if(user){
+                receiverUserName = user.userName;
+            }
+        } catch (error){
+            console.log("Error getting user in sendDrawing: ", error.message);
+            res.status(500).json({message: "Internal Server Error"});
+        }
+
+        let sentFromId;
+        let sentFromUserName = "";
         if(req.user){
-            sentFrom = req.user._id;
+            sentFromId = req.user._id;
+
+            try{
+                const user = await User.findById(sentFromId);
+
+                if(user){
+                    sentFromUserName = user.userName;
+                }
+            } catch (error){
+                console.log("Error getting user in sendDrawing: ", error.message);
+                res.status(500).json({message: "Internal Server Error"});
+            }
         }
 
         const newDrawing = new Drawing ({
             image,
             receiverId,
+            receiverUserName,
             isAnon,
-            senderId: sentFrom,
+            senderId: sentFromId,
+            senderUserName: sentFromUserName,
         });
 
         await newDrawing.save();
 
         res.status(201).json(newDrawing);
+        
 
     } catch (error) {
         console.log("Error in sendDrawing: ", error.message);
