@@ -1,9 +1,10 @@
 import React from 'react'
+import InboxContainer from '../components/InboxContainer'
 
 const InboxPage = () => {
   return (
     <div>
-      inbox
+      <InboxContainer />
     </div>
   )
 }
