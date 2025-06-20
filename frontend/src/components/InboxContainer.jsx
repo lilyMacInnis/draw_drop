@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDrawStore } from '../store/useDrawStore'
 import Drawing from './Drawing';
+import { Link } from 'react-router';
 //import { useAuthStore } from '../store/useAuthStore';
 
 const InboxContainer = () => {
@@ -44,7 +45,7 @@ const InboxContainer = () => {
                 {
                     (!drawing.isAnon && drawing.senderId) && (
                         <>
-                            sent by: {drawing.senderUserName}
+                            sent by: <Link to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link>
                         </>
                     )
                 }
