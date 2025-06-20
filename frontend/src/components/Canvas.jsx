@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 //import { sendDrawing } from '../../../backend/src/controllers/drawing.controllers';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDrawStore } from '../store/useDrawStore';
 //import { useCanvasStore } from '../store/useCanvasStore';
 
 export default function Canvas(props) {
   //const {brushColor, brushSize} = useCanvasStore();
-  const {sendDrawing, isSendingDrawing} = useDrawStore();
   const navigate = useNavigate();
+  const {id} = useParams();
+  const prevIdRef = useRef(id);
+
+  const {sendDrawing, isSendingDrawing} = useDrawStore();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('#000000');
@@ -19,20 +22,23 @@ export default function Canvas(props) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if(!canvas) return;
     const ctx = canvas.getContext('2d');
     canvas.width = props.width;
     canvas.height = props.height;
     ctx.lineCap = 'round';
 
-    const savedImage = localStorage.getItem('savedCanvas');
-    if (savedImage) {
+    const savedImage = localStorage.getItem(`savedCanvas-${id}`);
+    if (savedImage && savedImage?.startsWith('data:image/png')) {
       const img = new Image();
       img.src = savedImage;
       img.onload = () => {
         ctx.drawImage(img, 0, 0);
       };
     }
-  }, [props.width, props.height]);
+
+    prevIdRef.current = id;
+  }, [props.width, props.height, id]);
 
 //   const startDrawing = (e) => {
 //     const canvas = canvasRef.current;
@@ -94,14 +100,14 @@ export default function Canvas(props) {
   const saveToLocalStorage = () => {
     const canvas = canvasRef.current;
     const dataUrl = canvas.toDataURL();
-    localStorage.setItem('savedCanvas', dataUrl);
+    localStorage.setItem(`savedCanvas-${id}`, dataUrl);
   };
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    localStorage.removeItem('savedCanvas');
+    localStorage.removeItem(`savedCanvas-${id}`);
     setImageUrl('');
     setUndoStack([]);
     setRedoStack([]);
