@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { axiosInstance } from "../lib/axios";
-import { updateProfilePic } from "../../../backend/src/controllers/auth.controllers";
 
 export const useAuthStore = create(
   persist(

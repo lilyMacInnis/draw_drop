@@ -8,6 +8,7 @@ import { useAuthStore } from './store/useAuthStore'
 import InboxPage from './pages/InboxPage'
 import SearchPage from './pages/SearchPage'
 import SendPage from './pages/SendPage'
+import ProfilePage from './pages/ProfilePage'
 
 const App = () => {
   const {authUser} = useAuthStore();
