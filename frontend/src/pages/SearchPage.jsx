@@ -3,7 +3,7 @@ import { useDrawStore } from '../store/useDrawStore'
 import { useNavigate } from 'react-router';
 
 const SearchPage = () => {
-  const {users, isLoadingUsers, getUsers, setSelectedUser} = useDrawStore();
+  const {users, isLoadingUsers, getUsers} = useDrawStore();
   const navigate = useNavigate();
 
   useEffect( () => {
@@ -11,7 +11,7 @@ const SearchPage = () => {
   }, [getUsers]);
 
   const handleClick = (user) => {
-    setSelectedUser(user);
+    //setSelectedUser(user);
     navigate(`/send/${user._id}`);
 
   }
