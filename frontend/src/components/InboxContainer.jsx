@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useDrawStore } from '../store/useDrawStore'
 import Drawing from './Drawing';
 import { Link } from 'react-router';
-//import { useAuthStore } from '../store/useAuthStore';
+import { useAuthStore } from '../store/useAuthStore';
 
 const InboxContainer = () => {
   const {drawingsToUser, getDrawingsToUser, isLoadingDrawings} = useDrawStore();
   const reversedDrawingsToUser = [...drawingsToUser].reverse();
-  //const {authUser} = useAuthStore();
+  const {authUser} = useAuthStore();
 
   useEffect( () => {
     getDrawingsToUser();
@@ -44,9 +44,16 @@ const InboxContainer = () => {
 
                 {
                     (!drawing.isAnon && drawing.senderId) && (
-                        <>
-                            sent by: <Link to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link>
-                        </>
+
+                        (drawing.senderId == authUser._id) ? (
+                            <>
+                                <div>Sent by: You</div>
+                            </>
+                        ) : (
+                            <>
+                                <div>Sent by: <Link to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link></div>
+                            </>
+                        )
                     )
                 }
                 <time>{drawing.createdAt}</time>
