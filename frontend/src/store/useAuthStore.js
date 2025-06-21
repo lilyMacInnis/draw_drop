@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { axiosInstance } from "../lib/axios";
+import { updateProfilePic } from "../../../backend/src/controllers/auth.controllers";
 
 export const useAuthStore = create(
   persist(
@@ -10,6 +11,7 @@ export const useAuthStore = create(
       isSigningUp: false,
       isLoggingIn: false,
       isCheckingAuth: false,
+      isUpdatingProfile: false,
 
       checkAuth: async () => {
         set({ isCheckingAuth: true });
@@ -66,6 +68,14 @@ export const useAuthStore = create(
         } catch (error){
           console.log("Error in logout in authStore: ", error.response.data.message);
         }
+      },
+
+      updateProfilePic: async (data) => {
+        
+      },
+
+      updateUserName: async (data) => {
+
       },
     }),
     {
