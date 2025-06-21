@@ -134,8 +134,8 @@ export default function Canvas(props) {
 
     try {
         await sendDrawing({
-        image: url,
-        isAnon: props.isAnon
+            image: url,
+            isAnon: props.isAnon
         });
     } catch (error) {
         console.log("Failed to send drawing: ", error);

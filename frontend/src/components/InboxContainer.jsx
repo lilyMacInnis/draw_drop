@@ -43,16 +43,18 @@ const InboxContainer = () => {
                 }
 
                 {
-                    (!drawing.isAnon && drawing.senderId) && (
+                    (drawing.senderId) && (
 
                         (drawing.senderId == authUser._id) ? (
                             <>
                                 <div>Sent by: You</div>
                             </>
                         ) : (
-                            <>
-                                <div>Sent by: <Link to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link></div>
-                            </>
+                            (!drawing.isAnon) && (
+                                <>
+                                    <div>Sent by: <Link to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link></div>
+                                </>
+                            )
                         )
                     )
                 }
