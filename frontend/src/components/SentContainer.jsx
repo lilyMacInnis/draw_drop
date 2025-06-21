@@ -62,4 +62,4 @@ const SentContainer = () => {
   )
 }
 
-export default InboxContainer
+export default SentContainer
