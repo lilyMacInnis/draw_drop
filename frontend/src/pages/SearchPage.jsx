@@ -17,17 +17,6 @@ const SearchPage = () => {
 
   };
 
-  const handleSearch = (user) => {
-
-    // if(search.toLowerCase() === ''){
-    //   return user;
-    // } else {
-    //   return user.userName.toLowerCase().includes(search)  || user.email.toLowerCase().includes(search);
-    // };
-
-    return search.toLowerCase() === '' ? user : user.userName.toLowerCase().includes(search);
-};
-
   if(isLoadingUsers){
     return <div>Loading ...</div>
   };
