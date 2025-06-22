@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
-import { set } from 'mongoose';
 
 const ProfilePage = () => {
   const {authUser, checkAuth, isCheckingAuth, isUpdatingProfile, updateProfilePic, updateUserName} = useAuthStore();

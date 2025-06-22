@@ -70,7 +70,16 @@ export const useAuthStore = create(
       },
 
       updateProfilePic: async (data) => {
-        
+        set({isUpdatingProfile: true});
+
+        try{
+          const res = await axiosInstance.put('/auth/update-profile-pic', data);
+          set({authUser: res.data});
+        } catch (error){
+          console.log("Error in update profile pic in authStore: ", error);
+        } finally{
+          set({isUpdatingProfile: false});
+        }
       },
 
       updateUserName: async (data) => {
