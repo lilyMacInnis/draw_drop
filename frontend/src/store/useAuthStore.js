@@ -83,7 +83,16 @@ export const useAuthStore = create(
       },
 
       updateUserName: async (data) => {
+        set({isUpdatingProfile: true});
 
+        try{
+          const res = await axiosInstance.put('/auth/update-user-name', data);
+          set({authUser: res.data});
+        } catch (error) {
+          console.log("Error in update username in authStore: ", error);
+        } finally{
+          set({isUpdatingProfile: false});
+        }
       },
     }),
     {
