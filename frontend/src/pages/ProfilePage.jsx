@@ -28,6 +28,15 @@ const ProfilePage = () => {
     }
   };
 
+  const handleUserNameChange = async (e) => {
+    if(e.key !== "Enter") return;
+
+    const userName = e.target.value;
+    if(!userName) return;
+
+    await updateUserName({userName: userName});
+  };
+
   return (
     <div className='h-screen pt-20 max-w-2xl mx-auto p-4 py-8 bg-base-300 rounded-xl p-6 space-y-8'>
         <div className='flex flex-col items-center gap-4'>
@@ -70,12 +79,14 @@ const ProfilePage = () => {
                     Username: 
                     <input
                         type='text'
-                        value={`${authUser?.userName}`}
+                        defaultValue={`${authUser?.userName}`}
+                        onKeyDown={handleUserNameChange}
+                        
                     />
                 </div>
 
                 <div>
-                    Email
+                    Email: 
                     <p>{`${authUser?.email}`}</p>
                 </div>
             </div>
