@@ -1,4 +1,5 @@
 import React from 'react'
+import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 
 const ToolBar = (props) => {
   return (
@@ -52,6 +53,13 @@ const ToolBar = (props) => {
             className="px-4 py-2 bg-gray-400 text-white rounded-lg shadow hover:bg-gray-500"
         >
             Redo
+        </button>
+
+        <button 
+            onClick={() => props.setIsPickingColor(true)}
+            className="px-4 py-2 bg-gray-400 text-white rounded-lg shadow hover:bg-gray-500"
+        >
+            <ColorizeOutlinedIcon />
         </button>
 
         <button
