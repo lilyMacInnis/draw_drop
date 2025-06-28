@@ -12,6 +12,7 @@ export const useDrawStore = create(
             isLoadingDrawings: false,
             isSendingDrawing: false,
             selectedUser: null,
+            isDeleting: false,
 
             setSelectedUser: (selectedUser) => set({selectedUser}),
 
@@ -61,6 +62,17 @@ export const useDrawStore = create(
                     console.log("Error in getDrawingsToer in drawStore: ", error.response.data.message);
                 } finally{
                     set({isLoadingDrawings: false});
+                }
+            },
+
+            deleteDrawing: async (drawingId) => {
+                set({isDeleting: true});
+                try{
+                    await axiosInstance.delete(`/draw/delete/${drawingId}`);
+                } catch (error){
+                    console.log("Error in deleteDrawing in drawStore: ", error.response.data.message);
+                } finally {
+                    set({isDeleting: false});
                 }
             }
         }),
