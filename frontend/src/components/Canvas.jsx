@@ -26,6 +26,9 @@ export default function Canvas(props) {
     canvas.width = props.width;
     canvas.height = props.height;
     ctx.lineCap = 'round';
+   
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const savedImage = localStorage.getItem(`savedCanvas-${id}`);
     if (savedImage && savedImage?.startsWith('data:image/png')) {
@@ -87,7 +90,8 @@ export default function Canvas(props) {
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     localStorage.removeItem(`savedCanvas-${id}`);
     setUndoStack([]);
     setRedoStack([]);
