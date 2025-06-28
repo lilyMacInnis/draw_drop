@@ -13,6 +13,8 @@ export default {
         primaryl: "rgba(var(--primary-light))",
         primaryd: "rgba(var(--primary-dark))",
         accent: "rgba(var(--accent))",
+        textPrimary: "rgba(var(--text-color))",
+        textAlt: "rgba(var(--text-color-light))",
       },
     },
   },
