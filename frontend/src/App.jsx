@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import { Navigate, Route, Routes } from 'react-router'
 import HomePage from './pages/HomePage'
@@ -9,9 +9,23 @@ import InboxPage from './pages/InboxPage'
 import SearchPage from './pages/SearchPage'
 import SendPage from './pages/SendPage'
 import ProfilePage from './pages/ProfilePage'
+import { useThemeStore } from './store/useThemeStore'
 
 const App = () => {
   const {authUser} = useAuthStore();
+  const {theme} = useThemeStore();
+
+  useEffect(() => {
+    const selectedTheme = localStorage.getItem("theme");
+
+    if(selectedTheme){
+      document.documentElement.classList = selectedTheme;
+    } else if(window.matchMedia("(prefers-color-theme: dark)").matches) {
+      document.documentElement.classList = "dark";
+    } else{
+      document.documentElement.classList = "light";
+    }
+  }, [theme]);
 
   return (
     <div >

@@ -7,7 +7,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   //const {isSigningUp, authUser, isAuthenticated} = useAuthStore();
   return (
-    <div>
+    <div className='bg-background'>
       Welome
 
       <button onClick={() => {navigate('/search')}}>

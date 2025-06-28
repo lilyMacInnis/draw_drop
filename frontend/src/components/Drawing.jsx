@@ -15,7 +15,7 @@ const Drawing = (drawing, isInSent) => {
 
   if(isDeleting){
     return <div>Deleting...</div>
-  }
+  };
 
   return (
     <div className='flex flex-row'>
