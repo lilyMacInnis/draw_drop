@@ -150,6 +150,10 @@ export default function Canvas(props) {
   const handleSendDrawing = async (e) => {
     e.preventDefault();
 
+    if(!window.confirm("Are you sure you want to send the drawing?")){
+      return;
+    }
+
     const canvas = canvasRef.current;
     const url = canvas.toDataURL('image/png');
 
