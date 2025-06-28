@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.light {
+  --background: 238, 244, 243;
+  --bg-ultra: 255, 255, 255;
+
+  --primary: 0, 109, 251;
+  --primary-light: 102, 222, 255;
+  --primary-dark: 0, 49, 172;
+
+  --accent: 255, 23, 139;
+
+  background: rbga(var(--background));
+}
+
+.dark {
+  --background: 30, 41, 57;
+  --bg-ultra: 0, 0, 0;
+
+  --primary: 0, 109, 251;
+  --primary-light: 102, 222, 255;
+  --primary-dark: 0, 49, 172;
+
+  --accent: 255, 23, 139;
+
+  background: rbga(var(--background));
+}
