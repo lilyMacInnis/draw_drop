@@ -12,6 +12,7 @@ export default function Canvas(props) {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [isPickingColor, setIsPickingColor] = useState(false);
+  const [hoverColor, setHoverColor] = useState('#000000')
   const [brushColor, setBrushColor] = useState('#000000');
   const [brushSize, setBrushSize] = useState(5);
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
@@ -122,7 +123,7 @@ export default function Canvas(props) {
     saveToLocalStorage();
   };
 
-  const pickColor = (e) => {
+  const getColor = (e) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const rect = canvas.getBoundingClientRect();
@@ -133,7 +134,13 @@ export default function Canvas(props) {
     const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b)
       .toString(16)
       .slice(1)}`;
-    setBrushColor(hex);
+    return hex;
+  };
+
+  const pickColor = (e) => {
+    const color = getColor(e);
+    setBrushColor(color);
+    setIsPickingColor(false);
   };
 
   const handleSendDrawing = async (e) => {
@@ -174,12 +181,21 @@ export default function Canvas(props) {
               }
             }}
             onMouseUp={stopDrawing}
-            onMouseMove={draw}
+            onMouseMove={ (e) => {
+              if(isPickingColor){
+                const color = getColor(e);
+                setHoverColor(color);
+              } else{
+                draw(e);
+              }
+            }}
             onMouseLeave={stopDrawing}
         />
 
         <ToolBar
             brushColor={brushColor}
+            isPickingColor={isPickingColor}
+            hoverColor={hoverColor}
             setIsPickingColor={setIsPickingColor}
             setBrushColor={setBrushColor}
             brushSize={brushSize}

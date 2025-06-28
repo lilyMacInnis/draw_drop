@@ -8,7 +8,7 @@ const ToolBar = (props) => {
             Brush Color
             <input
                 type="color"
-                value={props.brushColor}
+                value={props.isPickingColor ? props.hoverColor : props.brushColor}
                 onChange={(e) => props.setBrushColor(e.target.value)}
                 className="w-10 h-10 p-0 border-none cursor-pointer"
             />
@@ -56,7 +56,7 @@ const ToolBar = (props) => {
         </button>
 
         <button 
-            onClick={() => props.setIsPickingColor(true)}
+            onClick={() => props.setIsPickingColor(!props.isPickingColor)}
             className="px-4 py-2 bg-gray-400 text-white rounded-lg shadow hover:bg-gray-500"
         >
             <ColorizeOutlinedIcon />
