@@ -2,6 +2,12 @@ import React from 'react'
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 
 const ToolBar = (props) => {
+  const handleClearCanvas = () => {
+    if(window.confirm("Are you sure you want to delete this drawing?")){
+        props.clearCanvas();
+    };
+  };
+
   return (
     <div className="absolute top-4 left-4 bg-white p-4 rounded-xl shadow-lg flex flex-col gap-4 max-w-[90vw] w-fit">
         <label className="flex flex-col text-sm font-medium">
@@ -35,7 +41,7 @@ const ToolBar = (props) => {
         </button> */}
 
         <button
-            onClick={props.clearCanvas}
+            onClick={handleClearCanvas}
             className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600"
         >
             Clear Canvas
