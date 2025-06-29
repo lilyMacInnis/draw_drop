@@ -1,34 +1,18 @@
 import React, { useState } from 'react'
-import { useDrawStore } from '../store/useDrawStore';
-import { useNavigate } from 'react-router';
+// import { useDrawStore } from '../store/useDrawStore';
+// import { useNavigate } from 'react-router';
 import { useAuthStore } from '../store/useAuthStore';
 import Canvas from '../components/Canvas';
 
 const SendPage = () => {
-  const [imageUrl, setImageUrl] = useState("");
+  //const [imageUrl, setImageUrl] = useState("");
   const [isAnon, setisAnon] = useState(true);
-  const {sendDrawing, isSendingDrawing} = useDrawStore();
+  //const {sendDrawing, isSendingDrawing} = useDrawStore();
   const {authUser} = useAuthStore();
-  const navigate = useNavigate();
-
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if(!imageUrl) return;
-
-    try{
-      await sendDrawing({
-        image: imageUrl,
-        isAnon: isAnon
-      })
-    } catch (error){
-      console.log("Failed to send drawing: ", error);
-    }
-
-    navigate('/search');
-  };
+  //const navigate = useNavigate();
 
   return (
-    <div>
+    <div className='h-screen bg-background'>
 
       {authUser && 
         <button onClick={() => setisAnon(!isAnon)}>
@@ -47,34 +31,9 @@ const SendPage = () => {
         </button>
       }
 
-      <form onSubmit={handleSendMessage}>
+      
 
-        <input
-          type='text'
-          placeholder='imageurl'
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-
-        <button
-          type='submit'
-          disabled={!imageUrl.trim() || isSendingDrawing}
-        >
-          {
-            isSendingDrawing ? (
-              <>
-                Sending...
-              </>
-            ) : (
-              <>
-                Send
-              </>
-            )
-          }
-        </button>
-      </form>
-
-      <Canvas width={500} height={500} isAnon={isAnon} />
+      <Canvas width={400} height={200} isAnon={isAnon} />
     </div>
   )
 }

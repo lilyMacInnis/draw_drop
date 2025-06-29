@@ -2,11 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useDrawStore } from '../store/useDrawStore';
 import ToolBar from './ToolBar';
+import ColorPicker from './ColorPicker';
 
 export default function Canvas(props) {
   const navigate = useNavigate();
   const {id} = useParams();
   const prevIdRef = useRef(id);
+
+  const sendPosY = `translate-y-[${props.height +80}px]`;
+  const sendWidth = `w-[${props.width +4}px]`;
 
   const {sendDrawing, isSendingDrawing} = useDrawStore();
   const canvasRef = useRef(null);
@@ -177,43 +181,64 @@ export default function Canvas(props) {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-        <canvas
-            ref={canvasRef}
-            className=""
-            onMouseDown={ (e) => {
-              if(isPickingColor){
-                pickColor(e);
-              } else {
-                startDrawing(e);
-              }
-            }}
-            onMouseUp={stopDrawing}
-            onMouseMove={ (e) => {
-              if(isPickingColor){
-                const color = getColor(e);
-                setHoverColor(color);
-              } else{
-                draw(e);
-              }
-            }}
-            onMouseLeave={stopDrawing}
-        />
+    <div className="relative flex flex-col-reverse items-center justify-center align-middle w-full h-screen">
+      <canvas
+          ref={canvasRef}
+          className="border-2 border-primary rounded-t-lg"
+          onMouseDown={ (e) => {
+            if(isPickingColor){
+              pickColor(e);
+            } else {
+              startDrawing(e);
+            }
+          }}
+          onMouseUp={stopDrawing}
+          onMouseMove={ (e) => {
+            if(isPickingColor){
+              const color = getColor(e);
+              setHoverColor(color);
+            } else{
+              draw(e);
+            }
+          }}
+          onMouseLeave={stopDrawing}
+      />
 
-        <ToolBar
-            brushColor={brushColor}
-            isPickingColor={isPickingColor}
-            hoverColor={hoverColor}
-            setIsPickingColor={setIsPickingColor}
-            setBrushColor={setBrushColor}
-            brushSize={brushSize}
-            setBrushSize={setBrushSize}
-            clearCanvas={clearCanvas}
-            undo={undo}
-            redo={redo}
-            handleSendDrawing={handleSendDrawing}
-            isSendingDrawing={isSendingDrawing}
-        />
+      <ToolBar
+          brushColor={brushColor}
+          isPickingColor={isPickingColor}
+          hoverColor={hoverColor}
+          setIsPickingColor={setIsPickingColor}
+          setBrushColor={setBrushColor}
+          brushSize={brushSize}
+          setBrushSize={setBrushSize}
+          clearCanvas={clearCanvas}
+          undo={undo}
+          redo={redo}
+
+          className=''
+      />
+
+      <div className={sendPosY}>
+        <button
+          onClick={handleSendDrawing}
+          className={`px-4 py-1.5 ${sendWidth} bg-primary border-2 border-primary text-lg font-semibold text-white rounded-b-lg hover:bg-primaryl`}
+          disabled={isSendingDrawing}
+        >
+          {
+            isSendingDrawing ? (
+            <>
+              Sending...
+            </>
+            ) : (
+            <>
+              Send
+            </>
+            )
+          }
+        </button>
+      </div>
+
     </div>
   );
 }
