@@ -6,6 +6,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import InboxIcon from '@mui/icons-material/Inbox';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 
 const Navbar = () => {
   const {authUser, logout} = useAuthStore();
@@ -34,7 +35,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className='flex items-center gap-10'>
+          <div className='flex items-center gap-20'>
 
             <div className='relative bottom-3'>
               <label>
@@ -56,34 +57,41 @@ const Navbar = () => {
                 </span>
               </label>
             </div>
+            
 
-            <div className=''>
-              {!authUser && (
-                <>
-                  <Link to="/login" className='right-0'>
-                    <span>Login</span>
+            {authUser && (
+              <>
+                <div className='flex items-center gap-5'>
+                  <Link to="/profile" className='flex items-center rounded-xl border border-bgDark bg-bgUltra hover:bg-background'>
+                    <img
+                      src={authUser.profilePic || "/avatar.png"}
+                      alt="Profile"
+                      className='size-8 p-[0.1875rem] rounded-full'
+                    />
+                    <span className='font-semibold text-primary mr-1'>Profile</span>
                   </Link>
-                </>
-              )}
-            </div>
 
-            <div className=''>
-              {authUser && (
-                <>
-                  <div className='flex items-center gap-5'>
-                    <Link to="/inbox" className='rounded-lg drop-shadow-md bg-bgUltra hover:bg-background'>
-                      <InboxIcon className='p-[0.1875rem] text-primary'/>
-                      <span className='font-semibold text-primary mr-1'>Inbox</span>
-                    </Link>
+                  <Link to="/inbox" className='rounded-xl border border-bgDark bg-bgUltra hover:bg-background'>
+                    <InboxIcon className='p-[0.1875rem] text-primary'/>
+                    <span className='font-semibold text-primary mr-1'>Inbox</span>
+                  </Link>
 
-                    <button onClick={logout} className='rounded-lg drop-shadow-md bg-bgUltra hover:bg-background'>
-                      <LogoutIcon className='p-[0.1875rem] text-primary'/>
-                      <span className='font-semibold text-primary mr-1'>Logout</span>
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
+                  <button onClick={logout} className='rounded-xl border border-bgDark bg-bgUltra hover:bg-background'>
+                    <LogoutIcon className='p-[0.1875rem] text-primary'/>
+                    <span className='font-semibold text-primary mr-1'>Logout</span>
+                  </button>
+                </div>
+              </>
+            )}
+
+            {!authUser && (
+              <>
+                <Link to="/login" className='rounded-lg border-2 border-background bg-bgUltra hover:bg-background gap-5 mr-0'>
+                  <LoginIcon className='p-[0.1875rem] text-primary'/>
+                  <span className='font-semibold text-primary mr-1'>Login</span>
+                </Link>
+              </>
+            )}
           </div>
           
         </div>

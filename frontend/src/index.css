@@ -5,6 +5,7 @@
 .light {
   --background: 238, 244, 243;
   --bg-ultra: 255, 255, 255;
+  --bg-dark: 218, 228, 232;
 
   --primary: 0, 109, 251;
   --primary-light: 77, 178, 255;
@@ -12,15 +13,17 @@
 
   --accent: 255, 23, 139;
 
-  --text-color: 0, 0, 0;
+  --text-color: 21, 24, 41;
   --text-color-light: 30, 41, 57;
+  --text-color-dark: 0, 0, 0;
 
   background: rbga(var(--background));
 }
 
 .dark {
-  --background: 0, 0, 0;
+  --background: 21, 24, 41;
   --bg-ultra: 30, 41, 57;
+  --bg-dark: 0, 0, 0;
 
   --primary: 0, 109, 251;
   --primary-dark: 77, 178, 255;
@@ -28,8 +31,9 @@
 
   --accent: 255, 23, 139;
 
-  --text-color: 255, 255, 255;
-  --text-color-light: 238, 244, 243;
+  --text-color: 238, 244, 243;
+  --text-color-light: 255, 255, 255;
+  --text-color-dark: 218, 228, 232;
 
   background: rbga(var(--background));
 }
