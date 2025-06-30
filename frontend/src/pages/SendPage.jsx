@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import { useDrawStore } from '../store/useDrawStore';
 // import { useNavigate } from 'react-router';
-import { useAuthStore } from '../store/useAuthStore';
+//import { useAuthStore } from '../store/useAuthStore';
 import Canvas from '../components/Canvas';
 
 const SendPage = () => {

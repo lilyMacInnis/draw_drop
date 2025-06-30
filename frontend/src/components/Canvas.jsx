@@ -20,7 +20,7 @@ export default function Canvas(props) {
   const [isPickingColor, setIsPickingColor] = useState(false);
   const [hoverColor, setHoverColor] = useState('#000000')
   const [brushColor, setBrushColor] = useState('#000000');
-  const [brushSize, setBrushSize] = useState(5);
+  const [brushSize, setBrushSize] = useState(4);
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
   const [undoStack, setUndoStack] = useState([]);
   const [redoStack, setRedoStack] = useState([]);
