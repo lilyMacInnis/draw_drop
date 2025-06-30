@@ -9,6 +9,8 @@ export default function Canvas(props) {
   const {id} = useParams();
   const prevIdRef = useRef(id);
 
+  const {isAnon} = useDrawStore();
+
   const sendPosY = `translate-y-[${props.height +80}px]`;
   const sendWidth = `w-[${props.width +4}px]`;
 
@@ -169,7 +171,7 @@ export default function Canvas(props) {
     try {
         await sendDrawing({
             image: url,
-            isAnon: props.isAnon
+            isAnon: isAnon
         });
     } catch (error) {
         console.log("Failed to send drawing: ", error);
@@ -181,7 +183,7 @@ export default function Canvas(props) {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-center align-middle w-full h-screen">
+    <div className="relative flex flex-col-reverse items-center justify-center align-middle w-full h-screen pb-20">
       <canvas
           ref={canvasRef}
           className="border-2 border-primary rounded-t-lg"
@@ -231,9 +233,15 @@ export default function Canvas(props) {
               Sending...
             </>
             ) : (
-            <>
-              Send
-            </>
+              isAnon ? (
+                <>
+                  Send Anonomously
+                </>
+              ) : (
+                <>
+                  Send
+                </>
+              )
             )
           }
         </button>

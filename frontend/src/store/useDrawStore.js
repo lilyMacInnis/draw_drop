@@ -13,8 +13,10 @@ export const useDrawStore = create(
             isSendingDrawing: false,
             selectedUser: null,
             isDeleting: false,
+            isAnon: true,
 
             setSelectedUser: (selectedUser) => set({selectedUser}),
+            setIsAnon: (isAnon) => set({isAnon}),
 
             getUsers: async () => {
                 set({isLoadingUsers: true});
