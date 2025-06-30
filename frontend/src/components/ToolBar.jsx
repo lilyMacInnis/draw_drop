@@ -75,7 +75,7 @@ const ToolBar = (props) => {
                     <ColorizeOutlinedIcon className='text-primary hover:text-primaryl'/>
                 </button>
                 
-                <label className="flex items-center text-sm font-medium pr-5 sm:pl-2">
+                <label className="flex items-center text-sm font-medium pr-5">
                     <div
                         className="size-6 rounded-full border border-textd cursor-pointer"
                         style={{ backgroundColor: props.brushColor }}
