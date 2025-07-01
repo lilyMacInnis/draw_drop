@@ -28,7 +28,7 @@ const ToolBar = (props) => {
 
   const handlePortrait= () => {
     if(window.innerWidth < window.innerHeight){
-        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6 * (2/3)});
+        setDimensions({width: window.innerWidth * 0.6 * (2/3), height: window.innerWidth * 0.6});
     } else{
         setDimensions({width: window.innerHeight * 0.6 * (2/3), height: window.innerHeight * 0.6});
     }

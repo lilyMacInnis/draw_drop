@@ -86,6 +86,7 @@ export const useDrawStore = create(
             name: "draw-storage", // key in localStorage
             partialize: (state) => ({
                 selectedUser: state.selectedUser,
+                dimensions: state.dimensions,
             }),
         }
     )

@@ -4,15 +4,12 @@ import { useDrawStore } from '../store/useDrawStore';
 import ToolBar from './ToolBar';
 import ColorPicker from './ColorPicker';
 
-export default function Canvas(props) {
+export default function Canvas() {
   const navigate = useNavigate();
   const {id} = useParams();
   const prevIdRef = useRef(id);
 
   const {isAnon} = useDrawStore();
-
-  const sendPosY = `translate-y-[${props.height +80}px]`;
-  const sendWidth = `w-[${props.width +4}px]`;
 
   const {sendDrawing, isSendingDrawing, dimensions} = useDrawStore();
   const canvasRef = useRef(null);
@@ -183,7 +180,7 @@ export default function Canvas(props) {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-center gap-1 align-middle w-full h-screen pb-20">
+    <div className="relative flex flex-col-reverse items-center justify-center gap-1 align-middle w-full h-screen pb-20 translate-y-[-44px]">
       <canvas
           ref={canvasRef}
           className="border-2 border-primary rounded-lg"
@@ -221,10 +218,10 @@ export default function Canvas(props) {
           className=''
       />
 
-      <div className={sendPosY}>
+      <div className='translate-y-[87.5vh]'>
         <button
           onClick={handleSendDrawing}
-          className={`px-4 py-1.5 ${sendWidth} bg-primary border-2 border-primary text-lg font-semibold text-white rounded-b-lg hover:bg-primaryl`}
+          className={`px-4 py-1.5 bg-primary border-2 border-primary text-lg font-semibold text-white rounded-lg hover:bg-primaryl`}
           disabled={isSendingDrawing}
         >
           {
