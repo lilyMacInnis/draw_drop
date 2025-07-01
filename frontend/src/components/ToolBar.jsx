@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useDrawStore } from '../store/useDrawStore';
 
 const ToolBar = (props) => {
-  const {isAnon, setIsAnon} = useDrawStore();
+  const {isAnon, setIsAnon, setDimensions} = useDrawStore();
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const handleClearCanvas = () => {
@@ -18,11 +18,35 @@ const ToolBar = (props) => {
     };
   };
 
+  const handleLandscape= () => {
+    if(window.innerWidth < window.innerHeight){
+        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6 * (2/3)});
+    } else{
+        setDimensions({width: window.innerHeight * 0.6, height: window.innerHeight * 0.6 * (2/3)});
+    }
+  };
+
+  const handlePortrait= () => {
+    if(window.innerWidth < window.innerHeight){
+        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6 * (2/3)});
+    } else{
+        setDimensions({width: window.innerHeight * 0.6 * (2/3), height: window.innerHeight * 0.6});
+    }
+  };
+
+  const handleSquare= () => {
+    if(window.innerWidth < window.innerHeight){
+        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6});
+    } else{
+        setDimensions({width: window.innerHeight * 0.6, height: window.innerHeight * 0.6});
+    }
+  };
+
   return (
     <div>
         <div>
             <div className='flex pt-1'>
-                <div className='pl-2 text-base text-textl flex items-center'>Anonomous: </div>
+                <div className=' text-base text-textl flex items-center'>Anonomous: </div>
                 <div className="relative flex items-center pl-1 pr-5">
                     <label className="relative block w-10 h-5">
                     <input
@@ -45,14 +69,36 @@ const ToolBar = (props) => {
                 </div>
             </div>
 
-            <div className='flex pl-2'>
-                Size
+            <div className='flex gap-1 text-textl pb-1'>
+                <div className='pt-1'>Size: </div>
+
+                <button 
+                    className='flex items-center rounded hover:bg-primary/30 pr-1'
+                    onClick={handleLandscape}
+                >
+                    <div className='px-1'>Landscape</div>
+                    <div className='w-6 h-4 bg-white border border-primary pr-2'/>
+                </button>
+                
+                <button 
+                    className='flex items-center rounded hover:bg-primary/30 pr-1 py-1'
+                    onClick={handlePortrait}
+                >
+                    <div className='px-1'>Portrait</div>
+                    <div className='w-4 h-6 bg-white border border-primary pr-2'/>
+                </button>
+
+                <button 
+                    className='flex items-center rounded hover:bg-primary/30 pr-1'
+                    onClick={handleSquare}
+                >
+                    <div className='px-1'>Square</div>
+                    <div className='w-5 h-5 bg-white border border-primary pr-2'/>
+                </button>
             </div>
         </div>
-        <div className="flex bg-background border-x-2 border-t-2 border-primary rounded-t-lg max-w-[60vw] w-fit">
-        
-            
-            
+        <div className="flex bg-background border-2 border-primary rounded-lg max-w-[60vw] w-fit">
+
             <div className='flex gap-1 sm:grid-cols-3 pb-0'>
                 <button
                     onClick={props.undo}

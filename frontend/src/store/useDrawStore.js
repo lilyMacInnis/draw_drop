@@ -14,9 +14,13 @@ export const useDrawStore = create(
             selectedUser: null,
             isDeleting: false,
             isAnon: true,
+            dimensions: (window.innerWidth < window.innerHeight) ? 
+                {width: window.innerWidth * 0.6, height: window.innerWidth * 0.6} :
+                {width: window.innerHeight * 0.6, height: window.innerHeight * 0.6},
 
             setSelectedUser: (selectedUser) => set({selectedUser}),
             setIsAnon: (isAnon) => set({isAnon}),
+            setDimensions: (dimensions) => set({dimensions}),
 
             getUsers: async () => {
                 set({isLoadingUsers: true});

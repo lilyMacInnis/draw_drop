@@ -14,7 +14,7 @@ export default function Canvas(props) {
   const sendPosY = `translate-y-[${props.height +80}px]`;
   const sendWidth = `w-[${props.width +4}px]`;
 
-  const {sendDrawing, isSendingDrawing} = useDrawStore();
+  const {sendDrawing, isSendingDrawing, dimensions} = useDrawStore();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [isPickingColor, setIsPickingColor] = useState(false);
@@ -29,8 +29,8 @@ export default function Canvas(props) {
     const canvas = canvasRef.current;
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
-    canvas.width = props.width;
-    canvas.height = props.height;
+    canvas.width = dimensions.width;
+    canvas.height = dimensions.height;
     ctx.lineCap = 'round';
    
     ctx.fillStyle = "white";
@@ -46,7 +46,7 @@ export default function Canvas(props) {
     }
 
     prevIdRef.current = id;
-  }, [props.width, props.height, id]);
+  }, [dimensions, id]);
 
   const startDrawing = (e) => {
     const canvas = canvasRef.current;
@@ -183,10 +183,10 @@ export default function Canvas(props) {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-center align-middle w-full h-screen pb-20">
+    <div className="relative flex flex-col-reverse items-center justify-center gap-1 align-middle w-full h-screen pb-20">
       <canvas
           ref={canvasRef}
-          className="border-2 border-primary rounded-t-lg"
+          className="border-2 border-primary rounded-lg"
           onMouseDown={ (e) => {
             if(isPickingColor){
               pickColor(e);
