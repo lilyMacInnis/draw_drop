@@ -94,7 +94,7 @@ const ProfilePage = () => {
               {
                 isUpdatingUserName ? (
                   <>
-                    <div className='text-textl flex items-center'>Updating...</div>
+                    <div className='text-textl'>Updating...</div>
                   </>
                 ) : (
                   <>
