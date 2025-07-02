@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-//import { EyeDropperIcon } from '@heroicons/react/24/outline';
 
 const ColorPicker = ({ color, onChange, onClose }) => {
   const [hex, setHex] = useState(color);
@@ -7,13 +6,27 @@ const ColorPicker = ({ color, onChange, onClose }) => {
   const hueCanvasRef = useRef(null);
   const hueMarkerRef = useRef(null);
   const svCanvasRef = useRef(null);
+  const pickerRef = useRef(null);
   const isDraggingHue = useRef(false);
+  const isDraggingSV = useRef(false);
 
   useEffect(() => {
     drawHueSlider();
     drawSVMap(hue);
     updateHueMarker();
   }, [hue]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
 
   const drawHueSlider = () => {
     const canvas = hueCanvasRef.current;
@@ -83,20 +96,7 @@ const ColorPicker = ({ color, onChange, onClose }) => {
     }
   };
 
-  const handleMouseUp = () => {
-    isDraggingHue.current = false;
-  };
-
-  useEffect(() => {
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mousemove', handleHueMouseMove);
-    return () => {
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mousemove', handleHueMouseMove);
-    };
-  }, []);
-
-  const handleSVClick = (e) => {
+  const handleSVInteraction = (e) => {
     const rect = svCanvasRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -107,6 +107,25 @@ const ColorPicker = ({ color, onChange, onClose }) => {
     setHex(hexColor);
     onChange(hexColor);
   };
+
+  const handleMouseUp = () => {
+    isDraggingHue.current = false;
+    isDraggingSV.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDraggingHue.current) handleHueInteraction(e);
+    if (isDraggingSV.current) handleSVInteraction(e);
+  };
+
+  useEffect(() => {
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const handleHexInput = (e) => {
     const value = e.target.value;
@@ -145,14 +164,14 @@ const ColorPicker = ({ color, onChange, onClose }) => {
   };
 
   return (
-    <div className="absolute top-20 left-1/2 -translate-x-1/2 bg-white p-4 shadow-lg rounded z-50">
+    <div ref={pickerRef} className="absolute bg-background border-2 border-primary p-4 rounded-lg z-50">
       <div className="relative mb-2">
         <canvas
           ref={hueCanvasRef}
           width={300}
           height={20}
           onMouseDown={handleHueMouseDown}
-          className="cursor-pointer"
+          className="cursor-pointer rounded border-2 border-textl"
         />
         <div
           ref={hueMarkerRef}
@@ -165,19 +184,24 @@ const ColorPicker = ({ color, onChange, onClose }) => {
         ref={svCanvasRef}
         width={300}
         height={150}
-        onClick={handleSVClick}
-        className="cursor-crosshair mb-2 border"
+        onMouseDown={(e) => {
+          isDraggingSV.current = true;
+          handleSVInteraction(e);
+        }}
+        className="mb-2 border-2 border-textl rounded cursor-crosshair"
       />
 
       <input
         type="text"
         value={hex}
         onChange={handleHexInput}
-        className="w-full border rounded px-2 py-1 text-center"
+        placeholder='#000000'
+        className="w-full pl-2 pr-2 py-1.5 outline-none rounded-lg bg-bgUltra border border-bgDark focus:border-primaryl/50 focus:border-2 focus:bg-bgUltra hover:bg-bgUltra text-textl transition duration-200"
       />
 
-      <button onClick={onClose} className="mt-2 px-3 py-1 bg-gray-200 rounded w-full">Close</button>
+      <button onClick={onClose} className="mt-2 px-3 py-1">Close</button>
     </div>
   );
 };
- export default ColorPicker;
+
+export default ColorPicker;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 import ColorPicker from './ColorPicker';
 import UndoIcon from '@mui/icons-material/Undo';
@@ -10,7 +10,7 @@ import { useDrawStore } from '../store/useDrawStore';
 
 const ToolBar = (props) => {
   const {isAnon, setIsAnon, setDimensions} = useDrawStore();
-  const [showColorPicker, setShowColorPicker] = useState(false);
+  //const [showColorPicker, setShowColorPicker] = useState(false);
 
   const handleClearCanvas = () => {
     if(window.confirm("Are you sure you want to delete this drawing?")){
@@ -126,17 +126,29 @@ const ToolBar = (props) => {
                     <div
                         className="size-6 rounded-full border border-textd cursor-pointer"
                         style={{ backgroundColor: props.brushColor }}
-                        onClick={() => setShowColorPicker(!showColorPicker)}
+                    >
+                        <input
+                            type="color"
+                            value={props.brushColor}
+                            className="hidden"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+                                props.setBrushColor(value);
+                                }
+                            }}
                     />
+                    </div>
+                    
                 </label>
 
-                {showColorPicker && (
+                {/* {showColorPicker && (
                     <ColorPicker
                         color={props.brushColor}
                         onChange={props.setBrushColor}
                         onClose={() => setShowColorPicker(false)}
                     />
-                )}
+                )} */}
 
                 <label className="flex items-center text-sm text-bgDark font-medium pr-5">
                     <input
