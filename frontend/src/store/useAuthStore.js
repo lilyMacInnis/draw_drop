@@ -10,10 +10,8 @@ export const useAuthStore = create(
       isSigningUp: false,
       isLoggingIn: false,
       isCheckingAuth: false,
-      isUpdatingProfile: false,
-      profilePic: null,
-
-      setProfilePic: (profilePic) => set({profilePic}),
+      isUpdatingProfilePic: false,
+      isUpdatingUserName: false,
 
       checkAuth: async () => {
         set({ isCheckingAuth: true });
@@ -73,7 +71,7 @@ export const useAuthStore = create(
       },
 
       updateProfilePic: async (data) => {
-        set({isUpdatingProfile: true});
+        set({isUpdatingProfilePic: true});
 
         try{
           const res = await axiosInstance.put('/auth/update-profile-pic', data);
@@ -81,12 +79,12 @@ export const useAuthStore = create(
         } catch (error){
           console.log("Error in update profile pic in authStore: ", error);
         } finally{
-          set({isUpdatingProfile: false});
+          set({isUpdatingProfilePic: false});
         }
       },
 
       updateUserName: async (data) => {
-        set({isUpdatingProfile: true});
+        set({isUpdatingUserName: true});
 
         try{
           const res = await axiosInstance.put('/auth/update-user-name', data);
@@ -94,7 +92,7 @@ export const useAuthStore = create(
         } catch (error) {
           console.log("Error in update username in authStore: ", error);
         } finally{
-          set({isUpdatingProfile: false});
+          set({isUpdatingUserName: false});
         }
       },
     }),
@@ -102,7 +100,6 @@ export const useAuthStore = create(
       name: "auth-storage", // key in localStorage
       partialize: (state) => ({
         authUser: state.authUser,
-        profilePic: state.profilePic,
       }),
     }
   )

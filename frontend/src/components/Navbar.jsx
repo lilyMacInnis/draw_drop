@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = () => {
-  const { authUser, logout } = useAuthStore();
+  const { authUser, logout, profilePic } = useAuthStore();
   const [isDark, setIsDark] = useState(false);
   const { setTheme } = useThemeStore();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,7 +68,7 @@ const Navbar = () => {
               {authUser ? (
                 <>
                   <Link to="/profile" className="flex items-center rounded-xl border border-bgDark bg-bgUltra hover:bg-background">
-                    <img src={authUser.profilePic || "/avatar.png"} alt="Profile" className="size-8 p-[0.1875rem] rounded-full" />
+                    <img src={authUser.profilePic || profilePic || "/avatar.png"} alt="Profile" className="size-8 p-[0.1875rem] rounded-full" />
                     <span className="text-textl mr-1">Profile</span>
                   </Link>
                   <Link to="/inbox" className="rounded-xl border border-bgDark bg-bgUltra hover:bg-background flex items-center pl-0.5 pr-2">

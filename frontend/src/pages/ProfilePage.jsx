@@ -10,9 +10,10 @@ const ProfilePage = () => {
     authUser,
     checkAuth,
     isCheckingAuth,
-    isUpdatingProfile,
+    isUpdatingProfilePic,
+    isUpdatingUserName,
     updateProfilePic,
-    updateUserName
+    updateUserName,
   } = useAuthStore();
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -65,7 +66,7 @@ const ProfilePage = () => {
               <label
                 htmlFor="avatar-upload"
                 className={`absolute bottom-0 right-0 hover:scale-105 p-2 rounded-full cursor-pointer transition-all duration-200 ${
-                  isUpdatingProfile ? "animate-pulse pointer-events-none" : ""
+                  isUpdatingProfilePic ? "animate-pulse pointer-events-none" : ""
                 }`}
               >
                 <AddAPhotoOutlinedIcon className="size-5 bg-accent text-white rounded-xl p-1" />
@@ -75,13 +76,13 @@ const ProfilePage = () => {
                   className="hidden"
                   accept="image/*"
                   onChange={handleImageUpload}
-                  disabled={isUpdatingProfile}
+                  disabled={isUpdatingProfilePic}
                 />
               </label>
             </div>
 
             <p className="text-xs sm:text-sm text-textl text-center px-2">
-              {isUpdatingProfile
+              {isUpdatingProfilePic
                 ? "Uploading..."
                 : "Click the camera icon to update your profile image"}
             </p>
@@ -90,19 +91,30 @@ const ProfilePage = () => {
           <div className="space-y-4 sm:space-y-6 w-full">
             
             <div>
-              <Input
-                Icon={<PersonIcon />}
-                name={
-                  <div className="flex justify-between items-end">
-                    <span>Username:</span>
-                    <span className="text-xs text-textl">Click to edit</span>
-                  </div>
-                }
-                type="text"
-                placeholder="Username"
-                defaultValue={authUser?.userName}
-                onKeyDown={handleUserNameChange}
-              />
+              {
+                isUpdatingUserName ? (
+                  <>
+                    <div className='text-textl flex items-center'>Updating...</div>
+                  </>
+                ) : (
+                  <>
+                    <Input
+                      Icon={<PersonIcon />}
+                      name={
+                        <div className="flex justify-between items-end">
+                          <span>Username:</span>
+                          <span className="text-xs text-textl">Click to edit</span>
+                        </div>
+                      }
+                      type="text"
+                      placeholder="Username"
+                      defaultValue={authUser?.userName}
+                      onKeyDown={handleUserNameChange}
+                      disabled={isUpdatingUserName}
+                    />
+                  </>
+                )
+              }
             </div>
 
             <div className="flex flex-col gap-1">
