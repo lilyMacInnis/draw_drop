@@ -75,7 +75,7 @@ const SignUpPage = () => {
                   Icon={<PersonIcon />}
                   name="User Name:"
                   type="text"
-                  placeholder="User name"
+                  placeholder="Your Name"
                   value={formData.userName}
                   onChange={(e) => setFormData({ ...formData, userName: e.target.value})}
                 />
