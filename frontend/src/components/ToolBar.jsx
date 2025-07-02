@@ -1,15 +1,16 @@
 import React from 'react'
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
-import ColorPicker from './ColorPicker';
 import UndoIcon from '@mui/icons-material/Undo';
 import RedoIcon from '@mui/icons-material/Redo';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDrawStore } from '../store/useDrawStore';
+import { useAuthStore } from '../store/useAuthStore';
 
 const ToolBar = (props) => {
   const {isAnon, setIsAnon, setDimensions} = useDrawStore();
+  const {authUser} = useAuthStore();
   //const [showColorPicker, setShowColorPicker] = useState(false);
 
   const handleClearCanvas = () => {
@@ -45,7 +46,7 @@ const ToolBar = (props) => {
   return (
     <div className='flex flex-col px-2'>
         <div>
-            <div className='flex pt-1 items-center pb-1'>
+            <div className={`flex pt-1 items-center pb-1 ${authUser ? `` : `hidden`}`}>
                 <div className=' text-base text-textl flex items-center'>Anonomous: </div>
                 <div className="relative flex items-center pl-1 pr-5">
                     <label className="relative block w-10 h-5">
@@ -134,7 +135,7 @@ const ToolBar = (props) => {
                             onChange={(e) => {
                                 const value = e.target.value;
                                 if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
-                                props.setBrushColor(value);
+                                    props.setBrushColor(value);
                                 }
                             }}
                     />

@@ -2,16 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useDrawStore } from '../store/useDrawStore';
 import ToolBar from './ToolBar';
-import ColorPicker from './ColorPicker';
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function Canvas() {
   const navigate = useNavigate();
   const {id} = useParams();
   const prevIdRef = useRef(id);
 
-  const {isAnon} = useDrawStore();
-
-  const {sendDrawing, isSendingDrawing, dimensions} = useDrawStore();
+  const {isAnon, sendDrawing, isSendingDrawing, dimensions} = useDrawStore();
+  const {authUser} = useAuthStore();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [isPickingColor, setIsPickingColor] = useState(false);
@@ -180,7 +179,7 @@ export default function Canvas() {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-end gap-1 w-full pb-20 translate-y-[-20px]">
+    <div className="relative flex flex-col-reverse items-center justify-end gap-1 w-full pb-20 ">
       <canvas
           ref={canvasRef}
           className="border-2 border-primary rounded-lg"
@@ -218,7 +217,7 @@ export default function Canvas() {
           className=''
       />
 
-      <div className={`${
+      <div className={`${authUser ? (
         (window.innerWidth > window.innerHeight) ? (
           `translate-y-[88.25vh]`
         ) : (
@@ -232,6 +231,22 @@ export default function Canvas() {
             )
           )
         )
+      ) : (
+        (window.innerWidth > window.innerHeight) ? (
+          `translate-y-[83vh]`
+        ) : (
+          (dimensions.width == dimensions.height) ? (
+            `translate-y-[74.5vh]`
+          ) : (
+            (dimensions.width > dimensions.height) ? (
+              `translate-y-[58vh]`
+            ) : (
+              `translate-y-[99.5vh]`
+            )
+          )
+        )
+      )
+        
       }`}>
         <button
           onClick={handleSendDrawing}

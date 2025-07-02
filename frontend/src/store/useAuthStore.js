@@ -11,6 +11,9 @@ export const useAuthStore = create(
       isLoggingIn: false,
       isCheckingAuth: false,
       isUpdatingProfile: false,
+      profilePic: null,
+
+      setProfilePic: (profilePic) => set({profilePic}),
 
       checkAuth: async () => {
         set({ isCheckingAuth: true });
@@ -99,6 +102,7 @@ export const useAuthStore = create(
       name: "auth-storage", // key in localStorage
       partialize: (state) => ({
         authUser: state.authUser,
+        profilePic: state.profilePic,
       }),
     }
   )
