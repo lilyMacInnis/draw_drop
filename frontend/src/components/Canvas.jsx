@@ -180,7 +180,7 @@ export default function Canvas() {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-end gap-1 w-full h-screen pb-20 translate-y-[-44px]">
+    <div className="relative flex flex-col-reverse items-center justify-end gap-1 w-full pb-20 translate-y-[-20px]">
       <canvas
           ref={canvasRef}
           className="border-2 border-primary rounded-lg"

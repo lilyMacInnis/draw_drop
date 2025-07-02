@@ -8,9 +8,7 @@ const SendPage = () => {
   return (
     <div className='min-h-screen bg-background'>
 
-      
-
-      <Canvas />
+      <Canvas/>
     </div>
   )
 }
