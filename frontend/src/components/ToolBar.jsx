@@ -20,15 +20,15 @@ const ToolBar = (props) => {
 
   const handleLandscape= () => {
     if(window.innerWidth < window.innerHeight){
-        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6 * (2/3)});
+        setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75 * (2/3)});
     } else{
-        setDimensions({width: window.innerHeight * 0.6, height: window.innerHeight * 0.6 * (2/3)});
+        setDimensions({width: window.innerHeight * 0.6 * 1.5, height: window.innerHeight * 0.6});
     }
   };
 
   const handlePortrait= () => {
     if(window.innerWidth < window.innerHeight){
-        setDimensions({width: window.innerWidth * 0.6 * (2/3), height: window.innerWidth * 0.6});
+        setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75 *1.5});
     } else{
         setDimensions({width: window.innerHeight * 0.6 * (2/3), height: window.innerHeight * 0.6});
     }
@@ -36,40 +36,40 @@ const ToolBar = (props) => {
 
   const handleSquare= () => {
     if(window.innerWidth < window.innerHeight){
-        setDimensions({width: window.innerWidth * 0.6, height: window.innerWidth * 0.6});
+        setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75});
     } else{
         setDimensions({width: window.innerHeight * 0.6, height: window.innerHeight * 0.6});
     }
   };
 
   return (
-    <div>
+    <div className='flex flex-col px-2'>
         <div>
-            <div className='flex pt-1'>
+            <div className='flex pt-1 items-center pb-1'>
                 <div className=' text-base text-textl flex items-center'>Anonomous: </div>
                 <div className="relative flex items-center pl-1 pr-5">
                     <label className="relative block w-10 h-5">
-                    <input
-                        type="checkbox"
-                        checked={isAnon}
-                        onChange={() => setIsAnon(!isAnon)}
-                        className="sr-only peer"
-                    />
-                    <div className="absolute w-full h-full bg-red-500/30 hover:bg-red-500/50 ring-2 ring-primary rounded-full after:bg-red-500 peer-checked:after:bg-green-500
-                        peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:bg-green-500/30 peer-checked:hover:bg-green-500/50  
-                        after:absolute after:top-0.5 after:start-[4px] after:rounded-full after:h-4 after:w-4 after:transition-all" />
-                    <span className="absolute left-0 transition-transform duration-300 peer-checked:hidden">
-                        <CloseIcon className="px-1 pb-2 pt-0 text-background" />
-                    </span>
-                    <span className="absolute left-4 hidden peer-checked:inline transition-transform duration-300">
-                        
-                        <CheckIcon className="px-1 pb-2 pt-0 text-background" />
-                    </span>
+                        <input
+                            type="checkbox"
+                            checked={isAnon}
+                            onChange={() => setIsAnon(!isAnon)}
+                            className="sr-only peer"
+                        />
+                        <div className="absolute w-full h-full bg-red-500/30 hover:bg-red-500/50 ring-2 ring-primary rounded-full after:bg-red-500 peer-checked:after:bg-green-500
+                            peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:bg-green-500/30 peer-checked:hover:bg-green-500/50  
+                            after:absolute after:top-0.5 after:start-[4px] after:rounded-full after:h-4 after:w-4 after:transition-all" />
+                        <span className="absolute left-0 transition-transform duration-300 peer-checked:hidden">
+                            <CloseIcon className="px-1 pb-2 pt-0 text-background" />
+                        </span>
+                        <span className="absolute left-4 hidden peer-checked:inline transition-transform duration-300">
+                            
+                            <CheckIcon className="px-1 pb-2 pt-0 text-background" />
+                        </span>
                     </label>
                 </div>
             </div>
 
-            <div className='flex gap-1 text-textl pb-1'>
+            <div className='flex gap-1 text-textl pb-1 flex-wrap'>
                 <div className='pt-1'>Size: </div>
 
                 <button 
@@ -97,9 +97,10 @@ const ToolBar = (props) => {
                 </button>
             </div>
         </div>
-        <div className="flex bg-background border-2 border-primary rounded-lg max-w-[60vw] w-fit">
 
-            <div className='flex gap-1 sm:grid-cols-3 pb-0'>
+        <div className="flex self-center bg-background border-2 border-primary rounded-lg w-fit">
+
+            <div className='flex gap-1 flex-wrap pb-0 justify-center'>
                 <button
                     onClick={props.undo}
                     className="p-1 pr-0"

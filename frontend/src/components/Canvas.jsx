@@ -180,7 +180,7 @@ export default function Canvas() {
   };
 
   return (
-    <div className="relative flex flex-col-reverse items-center justify-center gap-1 align-middle w-full h-screen pb-20 translate-y-[-44px]">
+    <div className="relative flex flex-col-reverse items-center justify-end gap-1 w-full h-screen pb-20 translate-y-[-44px]">
       <canvas
           ref={canvasRef}
           className="border-2 border-primary rounded-lg"
@@ -218,7 +218,21 @@ export default function Canvas() {
           className=''
       />
 
-      <div className='translate-y-[87.5vh]'>
+      <div className={`${
+        (window.innerWidth > window.innerHeight) ? (
+          `translate-y-[88.25vh]`
+        ) : (
+          (dimensions.width == dimensions.height) ? (
+            `translate-y-[80.25vh]`
+          ) : (
+            (dimensions.width > dimensions.height) ? (
+              `translate-y-[63.75vh]`
+            ) : (
+              `translate-y-[105.25vh]`
+            )
+          )
+        )
+      }`}>
         <button
           onClick={handleSendDrawing}
           className={`px-4 py-1.5 bg-primary border-2 border-primary text-lg font-semibold text-white rounded-lg hover:bg-primaryl`}
