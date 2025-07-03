@@ -17,9 +17,26 @@ const InboxPage = () => {
 
   return (
     <div>
-
-      <button onClick={() => {setIsInbox(true)}}>Inbox</button>
-      <button onClick={() => {setIsInbox(false)}}>Sent</button>
+      
+      <div className="relative ">
+        <label className="relative block w-[6.75rem] h-6">
+          <input
+            type="checkbox"
+            checked={!isInbox}
+            onChange={() => setIsInbox(!isInbox)}
+            className="sr-only peer"
+          />
+          <div className="absolute w-full h-full bg-background hover:bg-primary/20 ring-1 ring-bgDark rounded-full
+              peer peer-checked:after:translate-x-[3.75rem] rtl:peer-checked:after:-translate-x-full peer-checked:after:w-12 
+              after:absolute  after:bg-bgUltra after:border after:border-bgDark after:rounded-full after:h-6 after:w-[3.65rem] after:transition-all" />
+          <span className="absolute left-2 bottom-[0.1rem] text-textl transition-transform duration-300 peer-checked:text-textl/50">
+            Inbox
+          </span>
+          <span className="absolute left-[4.25rem] peer-checked:inline text-textl/50 peer-checked:text-textl transition-transform duration-300">
+            Sent
+          </span>
+        </label>
+      </div>
 
       {
         (isInbox) ? (
