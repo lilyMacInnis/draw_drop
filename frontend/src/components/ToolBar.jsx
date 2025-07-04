@@ -47,7 +47,7 @@ const ToolBar = (props) => {
     <div className='flex flex-col px-2'>
         <div>
             <div className={`flex pt-1 items-center pb-1 ${authUser ? `` : `hidden`}`}>
-                <div className=' text-base text-textl flex items-center'>Anonomous: </div>
+                <div className=' text-base text-textl flex items-center'>Anonymous: </div>
                 <div className="relative flex items-center pl-1 pr-5">
                     <label className="relative block w-10 h-5">
                         <input

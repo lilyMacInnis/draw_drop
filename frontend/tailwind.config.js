@@ -14,6 +14,8 @@ export default {
         primaryl: "rgba(var(--primary-light))",
         primaryd: "rgba(var(--primary-dark))",
         accent: "rgba(var(--accent))",
+        accentl: "rgba(var(--accent-light))",
+        accentd: "rgba(var(--accent-dark))",
         textPrimary: "rgba(var(--text-color))",
         textl: "rgba(var(--text-color-light))",
         textd: "rgba(var(--text-color-dark))",

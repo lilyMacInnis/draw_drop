@@ -49,7 +49,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="bg-background min-h-screen pt-10 px-4 sm:px-6">
+    <div className=" bg-gradient-to-b from-background from-60% to-primaryl min-h-screen pt-10 px-4 sm:px-6">
       <div className="max-w-xl mx-auto">
         <div className="bg-bgUltra border border-bgDark rounded-2xl p-4 sm:p-6 space-y-6 sm:space-y-8">
           
