@@ -9,7 +9,7 @@ export default function Canvas() {
   const {id} = useParams();
   const prevIdRef = useRef(id);
 
-  const {isAnon, sendDrawing, isSendingDrawing, dimensions} = useDrawStore();
+  const {isAnon, sendDrawing, isSendingDrawing, dimensions, setCanvasCleared} = useDrawStore();
   const {authUser} = useAuthStore();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -45,6 +45,7 @@ export default function Canvas() {
   }, [dimensions, id]);
 
   const startDrawing = (e) => {
+    setCanvasCleared(false);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -90,6 +91,7 @@ export default function Canvas() {
   };
 
   const clearCanvas = () => {
+    setCanvasCleared(true);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = "white";

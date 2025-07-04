@@ -9,7 +9,7 @@ import { useDrawStore } from '../store/useDrawStore';
 import { useAuthStore } from '../store/useAuthStore';
 
 const ToolBar = (props) => {
-  const {isAnon, setIsAnon, setDimensions} = useDrawStore();
+  const {isAnon, setIsAnon, setDimensions, canvasCleared} = useDrawStore();
   const {authUser} = useAuthStore();
   //const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -20,6 +20,10 @@ const ToolBar = (props) => {
   };
 
   const handleLandscape= () => {
+    if(!canvasCleared){
+        if(!window.confirm("Are you sure you want to resize? This may cause your drawing to get cut off.")) return;
+    }
+
     if(window.innerWidth < window.innerHeight){
         setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75 * (2/3)});
     } else{
@@ -28,6 +32,10 @@ const ToolBar = (props) => {
   };
 
   const handlePortrait= () => {
+    if(!canvasCleared){
+        if(!window.confirm("Are you sure you want to resize? This may cause your drawing to get cut off.")) return;
+    }
+
     if(window.innerWidth < window.innerHeight){
         setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75 *1.5});
     } else{
@@ -36,6 +44,10 @@ const ToolBar = (props) => {
   };
 
   const handleSquare= () => {
+    if(!canvasCleared){
+        if(!window.confirm("Are you sure you want to resize? This may cause your drawing to get cut off.")) return;
+    }
+
     if(window.innerWidth < window.innerHeight){
         setDimensions({width: window.innerWidth * 0.75, height: window.innerWidth * 0.75});
     } else{
