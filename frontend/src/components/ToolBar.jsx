@@ -82,7 +82,7 @@ const ToolBar = (props) => {
                 </div>
             </div>
 
-            <div className='flex gap-1 text-textl pb-1 flex-wrap'>
+            <div className='flex gap-1 text-textl flex-wrap'>
                 <div className='pt-1'>Size: </div>
 
                 <button 
@@ -109,6 +109,8 @@ const ToolBar = (props) => {
                     <div className='w-5 h-5 bg-white border border-primary pr-2'/>
                 </button>
             </div>
+
+            <p className='text-[0.5rem] text-textl/70 pb-2'>Be careful when resizing the canvas or page. This may cause the drawing to get cut off.</p>
         </div>
 
         <div className="flex self-center bg-background border-2 border-primary rounded-lg w-fit">

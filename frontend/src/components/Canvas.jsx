@@ -221,29 +221,29 @@ export default function Canvas() {
 
       <div className={`${authUser ? (
         (window.innerWidth > window.innerHeight) ? (
-          `translate-y-[88.25vh]`
+          `translate-y-[91vh]`
         ) : (
           (dimensions.width == dimensions.height) ? (
-            `translate-y-[80.25vh]`
+            `translate-y-[82vh]`
           ) : (
             (dimensions.width > dimensions.height) ? (
-              `translate-y-[63.75vh]`
+              `translate-y-[65.75vh]`
             ) : (
-              `translate-y-[105.25vh]`
+              `translate-y-[106.1vh]`
             )
           )
         )
       ) : (
         (window.innerWidth > window.innerHeight) ? (
-          `translate-y-[83vh]`
+          `translate-y-[85.75vh]`
         ) : (
           (dimensions.width == dimensions.height) ? (
-            `translate-y-[74.5vh]`
+            `translate-y-[76.25vh]`
           ) : (
             (dimensions.width > dimensions.height) ? (
-              `translate-y-[58vh]`
+              `translate-y-[60vh]`
             ) : (
-              `translate-y-[99.5vh]`
+              `translate-y-[100.3vh]`
             )
           )
         )
@@ -252,7 +252,7 @@ export default function Canvas() {
       }`}>
         <button
           onClick={handleSendDrawing}
-          className={`px-4 py-1.5 bg-primary border-2 border-primary text-lg font-semibold text-white rounded-lg hover:bg-primaryl`}
+          className={`px-4 py-1.5 bg-primary border-2 border-primary hover:border-primaryl text-lg font-semibold text-white rounded-lg hover:bg-primaryl`}
           disabled={isSendingDrawing}
         >
           {
