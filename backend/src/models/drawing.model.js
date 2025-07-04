@@ -10,7 +10,6 @@ const drawingSchema = new mongoose.Schema(
         },
         receiverUserName: {
             type: String,
-            
             required: true,
         },
         senderId: {

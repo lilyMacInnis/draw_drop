@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import InboxContainer from '../components/InboxContainer'
 import { useAuthStore } from '../store/useAuthStore'
 import SentContainer from '../components/SentContainer';
+import Loading from '../components/Loading';
 
 const InboxPage = () => {
   const {checkAuth, isCheckingAuth} = useAuthStore();
@@ -12,7 +13,7 @@ const InboxPage = () => {
   }, [checkAuth]);
 
   if(isCheckingAuth){
-    return <div>Loading ...</div>
+    return <Loading text='Loading...'/>
   }
 
   return (

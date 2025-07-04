@@ -1,24 +1,42 @@
 import React, { useEffect } from 'react'
 import { useDrawStore } from '../store/useDrawStore'
-import Drawing from './Drawing';
 import { Link } from 'react-router';
 import { useAuthStore } from '../store/useAuthStore';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { formatDistanceToNow } from "date-fns";
+import Loading from './Loading';
 
 const SentContainer = () => {
-  const {drawingsFromUser, getDrawingsFromUser, isLoadingDrawings} = useDrawStore();
+  const {drawingsFromUser, getDrawingsFromUser, isLoadingDrawings, deleteDrawing, isDeleting} = useDrawStore();
   const reversedDrawingsToUser = [...drawingsFromUser].reverse();
   const {authUser} = useAuthStore();
 
   useEffect( () => {
     getDrawingsFromUser();
-  }, [getDrawingsFromUser]);
+  }, [getDrawingsFromUser, isDeleting]);
+
+  const formatDate = (date) => {
+      return formatDistanceToNow(date, {addSuffix: true});
+   };
+
+  const handleDelete = async (id) => {
+    if(!window.confirm("Are you sure you want to delete this drawing?")) return;
+
+    try{
+        await deleteDrawing(id);
+    } catch (error){
+        console.log("Failed to delete drawing: ", error);
+    }
+  };
 
   if (isLoadingDrawings){
-    return <div>Loading...</div>
+    return(
+        <Loading text='Loading Drawings...' />
+    )
   };
 
   return (
-    <div>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
       {reversedDrawingsToUser.map((drawing) => (
         <div key={drawing._id}>
             {/* <Drawing
@@ -26,34 +44,57 @@ const SentContainer = () => {
                 isInSent={false}
             /> */}
 
-            <div className='flex flex-row'>
-                {
-                    drawing.image ? (
-                        <>
-                            <img
-                                src={drawing.image}
-                                alt="drawing"
-                            />
-                        </>
-                    ) : (
-                        <>
-                            Image url failed to send
-                        </>
-                    )
-                }
+            <div className='flex flex-col'>
+                <div>
+                    {
+                        (authUser._id == drawing.receiverId) ? (
+                            <>
+                                <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                    Sent to: You
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                    Sent to: <Link className='text-primary hover:underline' to={`/send/${drawing.receiverId}`}>{drawing.receiverUserName}</Link>
+                                </div>
+                            </>
+                        )
+                    }
+                </div>
 
-                {
-                    (authUser._id == drawing.receiverId) ? (
-                        <>
-                            sent to: You
-                        </>
-                    ) : (
-                        <>
-                            <div>Sent to: <Link to={`/send/${drawing.receiverId}`}>{drawing.recieverUserName}</Link></div>
-                        </>
-                    )
-                }
-                <time>{drawing.createdAt}</time>
+                <div className='text-textl'>
+                    {
+                        drawing.image ? (
+                            <>
+                                <img
+                                    src={drawing.image}
+                                    alt="drawing"
+                                    className='w-full border-x-2 border-primary'
+                                />
+                            </>
+                        ) : (
+                            <>
+                                Image url failed to send
+                            </>
+                        )
+                    }
+                    </div>
+
+                <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
+                    <div className='text-textl'>
+                        {formatDate(new Date(drawing.createdAt))}
+                    </div>
+
+                    <div>
+                        {/* <button className='text-primary hover:text-primaryl' >
+                            <SaveIcon />
+                        </button> */}
+                        <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
+                            <DeleteOutlineIcon />
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </div>

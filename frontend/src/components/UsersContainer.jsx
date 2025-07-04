@@ -1,13 +1,10 @@
 import React from 'react'
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Loading from './Loading';
 
 const UsersContainer = (props) => {
   if(props.isLoadingUsers){
     return(
-        <div className='h-screen w-screen flex flex-col items-center justify-center align-center'>
-            <RestartAltIcon className='size-10xl text-9xl text-textl/70 animate-spin'/>
-            <div className='text-textl/70'>Fetching Users...</div>
-        </div>
+        <Loading text='Fetching Users...'/>
     )
   }
 

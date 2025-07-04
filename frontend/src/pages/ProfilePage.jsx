@@ -4,6 +4,7 @@ import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 
 const ProfilePage = () => {
   const {
@@ -23,7 +24,7 @@ const ProfilePage = () => {
   }, [checkAuth]);
 
   if (isCheckingAuth) {
-    return <div className="text-center mt-10 text-textl">Loading...</div>;
+    return <Loading text='Loading...'/>;
   }
 
   const handleImageUpload = async (e) => {

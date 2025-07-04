@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { useDrawStore } from '../store/useDrawStore'
-import Drawing from './Drawing';
+import { useDrawStore } from '../store/useDrawStore';
 import { Link } from 'react-router';
 import { useAuthStore } from '../store/useAuthStore';
-import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { formatDistanceToNow } from "date-fns";
+import Loading from './Loading';
 
 const InboxContainer = () => {
   const {drawingsToUser, getDrawingsToUser, isLoadingDrawings, deleteDrawing, isDeleting} = useDrawStore();
@@ -15,8 +15,8 @@ const InboxContainer = () => {
     getDrawingsToUser();
   }, [getDrawingsToUser, isDeleting]);
 
-  if (isLoadingDrawings){
-    return <div>Loading...</div>
+  const formatDate = (date) => {
+    return formatDistanceToNow(date, {addSuffix: true});
   };
 
   const handleDelete = async (id) => {
@@ -29,8 +29,14 @@ const InboxContainer = () => {
     }
   };
 
+  if (isLoadingDrawings){
+    return(
+        <Loading text='Loading Drawings...'/>
+    )
+  };
+
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
       {reversedDrawingsToUser.map((drawing) => (
         <div key={drawing._id}>
             {/* <Drawing
@@ -45,14 +51,14 @@ const InboxContainer = () => {
 
                             (drawing.senderId == authUser._id) ? (
                                 <>
-                                    <div className='w-full bg-background border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                    <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
                                         Sent by: You
                                     </div>
                                 </>
                             ) : (
                                 (!drawing.isAnon) && (
                                     <>
-                                        <div className='w-full bg-background border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                        <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
                                             Sent by: <Link className='text-primary hover:underline' to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link>
                                         </div>
                                     </>
@@ -62,7 +68,7 @@ const InboxContainer = () => {
                     }
                 </div>
                 
-                <div>
+                <div className='text-textl'>
                     {
                         drawing.image ? (
                             <>
@@ -86,8 +92,10 @@ const InboxContainer = () => {
                     }
                 </div>
                 
-                <div className='flex justify-between bg-background border-2 border-primary rounded-b-lg px-2 py-1'>
-                    <time>{drawing.createdAt}</time>
+                <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
+                    <div className='text-textl'>
+                        {formatDate(new Date(drawing.createdAt))}
+                    </div>
 
                     <div>
                         {/* <button className='text-primary hover:text-primaryl' >
