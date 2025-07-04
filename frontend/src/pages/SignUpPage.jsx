@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore';
 import {Link} from 'react-router';
+import toast from 'react-hot-toast';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -20,20 +21,23 @@ const SignUpPage = () => {
     password: ""
   });
 
-  const {signup, isSigningUp, error} = useAuthStore();
+  const {signup, isSigningUp} = useAuthStore();
 
   const validateForm = () => {
     if(!formData.userName.trim()){
-      return <div className='text-red-500'>User name is required</div>
+      return toast.error("User Name is Required");
     }
     if(!formData.email.trim()){
-      return <div className='text-red-500'>Email is required</div>
+      return toast.error("Email is Required");
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)){
+      return toast.error("Invalid email format");
     }
     if(!formData.password){
-      return <div className='text-red-500'>Password is required</div>
+      return toast.error("Password is Required");
     }
     if(formData.password.length < 6){
-      return <div className='text-red-500'>Password must be at least 6 characters</div>
+      return toast.error("Password must be at least 6 characters");
     }
 
     return true;
@@ -45,13 +49,11 @@ const SignUpPage = () => {
 
     if(success === true){
       try{
-        //console.log("formData: ", formData);
         await signup(formData);
-        // console.log("authUser after singup: ", authUser);
-        // console.log("isAuth after signup: ", isAuthenticated);
-        // console.log(isSigningUp);
+        toast.success("Signed up successfully");
       } catch (error){
         console.log("Error in signup handlesubmit: ", error);
+        return toast.error("Something went wrong: " + error);
       }
     } else {
       return success;
@@ -118,8 +120,6 @@ const SignUpPage = () => {
                   </button>
                 </div>
               </div>
-
-              {error ?? <p className='text-red-500'>{error}</p>}
 
               
               <button 

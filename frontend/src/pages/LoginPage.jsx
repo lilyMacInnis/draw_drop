@@ -8,6 +8,7 @@ import LoopIcon from '@mui/icons-material/Loop';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from '../components/Input';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,8 +24,10 @@ const LoginPage = () => {
     
     try{
       await login(formData);
+      toast.success("Logged in successfully");
     } catch(error){
       console.log("Error in login handlesubmit: ", error);
+       toast.error("Something went wrong: " + error);
     }
   }
 

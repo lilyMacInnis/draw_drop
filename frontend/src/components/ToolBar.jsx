@@ -139,7 +139,7 @@ const ToolBar = (props) => {
                 
                 <label className="flex items-center text-sm font-medium pr-5">
                     <div
-                        className="size-6 rounded-full border border-textd cursor-pointer"
+                        className="size-6 rounded-full border border-textl/70 cursor-pointer"
                         style={{ backgroundColor: props.brushColor }}
                     >
                         <input

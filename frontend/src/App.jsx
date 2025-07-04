@@ -10,6 +10,7 @@ import SearchPage from './pages/SearchPage'
 import SendPage from './pages/SendPage'
 import ProfilePage from './pages/ProfilePage'
 import { useThemeStore } from './store/useThemeStore'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   const {authUser} = useAuthStore();
@@ -41,6 +42,8 @@ const App = () => {
         <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
 
       </Routes>
+
+      <Toaster />
 
     </div>
   )

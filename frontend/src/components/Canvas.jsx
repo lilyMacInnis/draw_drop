@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { useDrawStore } from '../store/useDrawStore';
 import ToolBar from './ToolBar';
 import { useAuthStore } from '../store/useAuthStore';
+import toast from 'react-hot-toast';
 
 export default function Canvas() {
   const navigate = useNavigate();
@@ -173,10 +174,12 @@ export default function Canvas() {
         });
     } catch (error) {
         console.log("Failed to send drawing: ", error);
+        toast.error("Something went wrong: " + error);
         return;
     }
 
     clearCanvas();
+    toast.success("Drawing sent!");
     navigate('/search');
   };
 

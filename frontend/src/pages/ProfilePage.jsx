@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import Input from '../components/Input';
 import Loading from '../components/Loading';
+import toast from 'react-hot-toast';
 
 const ProfilePage = () => {
   const {
@@ -37,7 +38,15 @@ const ProfilePage = () => {
     reader.onload = async () => {
       const base64Image = reader.result;
       setSelectedImage(base64Image);
-      await updateProfilePic({ profilePic: base64Image });
+
+      try{
+        await updateProfilePic({ profilePic: base64Image });
+        toast.success("Profile updated");
+      } catch (error){
+        console.log("Error in update profile pic: ", error);
+        toast.error("Something went wrong: " + error);
+      }
+      
     };
   };
 
@@ -45,7 +54,15 @@ const ProfilePage = () => {
     if (e.key !== 'Enter') return;
     const userName = e.target.value;
     if (!userName) return;
-    await updateUserName({ userName });
+
+    try{
+      await updateUserName({ userName });
+      toast.success("Profile updated");
+    } catch(error){
+      console.log("Error in change username: ", error);
+      toast.error("Something went wrong: " + error);
+    }
+
   };
 
   return (
