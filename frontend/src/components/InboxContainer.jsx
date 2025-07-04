@@ -4,18 +4,29 @@ import Drawing from './Drawing';
 import { Link } from 'react-router';
 import { useAuthStore } from '../store/useAuthStore';
 import SaveIcon from '@mui/icons-material/Save';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const InboxContainer = () => {
-  const {drawingsToUser, getDrawingsToUser, isLoadingDrawings} = useDrawStore();
+  const {drawingsToUser, getDrawingsToUser, isLoadingDrawings, deleteDrawing, isDeleting} = useDrawStore();
   const reversedDrawingsToUser = [...drawingsToUser].reverse();
   const {authUser} = useAuthStore();
 
   useEffect( () => {
     getDrawingsToUser();
-  }, [getDrawingsToUser]);
+  }, [getDrawingsToUser, isDeleting]);
 
   if (isLoadingDrawings){
     return <div>Loading...</div>
+  };
+
+  const handleDelete = async (id) => {
+    if(!window.confirm("Are you sure you want to delete this drawing?")) return;
+
+    try{
+        await deleteDrawing(id);
+    } catch (error){
+        console.log("Failed to delete drawing: ", error);
+    }
   };
 
   return (
@@ -75,8 +86,17 @@ const InboxContainer = () => {
                     }
                 </div>
                 
-                <div className='bg-background border-2 border-primary rounded-b-lg px-2 py-1'>
+                <div className='flex justify-between bg-background border-2 border-primary rounded-b-lg px-2 py-1'>
                     <time>{drawing.createdAt}</time>
+
+                    <div>
+                        {/* <button className='text-primary hover:text-primaryl' >
+                            <SaveIcon />
+                        </button> */}
+                        <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
+                            <DeleteOutlineIcon />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
