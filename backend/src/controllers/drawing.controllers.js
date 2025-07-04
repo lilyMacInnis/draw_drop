@@ -12,6 +12,33 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+export const searchUsers = async (req, res) => {
+    const search = req.params.search;
+    if(!search){
+        console.log("Error in searchUsers: ", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+    
+    try{
+        const users = await User.find( {
+            $or: [
+                {userName : {$regex : search, $options: 'i'}},
+                {email : {$regex : search, $options: 'i'}}
+            ]
+        });
+
+        if(users.length > 50){
+            const newUsers = users.slice(0, 49);
+            res.status(200).json(newUsers);
+        } else {
+            res.status(200).json(users);
+        }
+    } catch (error){
+        console.log("Error in searchUsers: ", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+};
+
 export const getDrawingsSentToUser = async (req, res) => {
     try{
         const receiverId = req.user._id;

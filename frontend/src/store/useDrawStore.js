@@ -23,6 +23,7 @@ export const useDrawStore = create(
             setIsAnon: (isAnon) => set({isAnon}),
             setDimensions: (dimensions) => set({dimensions}),
             setCanvasCleared: (canvasCleared) => set({canvasCleared}),
+            setUsers: (users) => set({users}),
 
             getUsers: async () => {
                 set({isLoadingUsers: true});
@@ -31,6 +32,18 @@ export const useDrawStore = create(
                     set({users: res.data});
                 } catch (error){
                     console.log("Error in getUsers in drawStore: ", error.response.data.message);
+                } finally{
+                    set({isLoadingUsers: false});
+                }
+            },
+
+            searchUsers: async (search) => {
+                set({isLoadingUsers: true});
+                try{
+                    const res = await axiosInstance.get(`/draw/users/${search}`);
+                    set({users: res.data});
+                } catch (error){
+                    console.log("Error in searchUsers in drawStore: ", error);
                 } finally{
                     set({isLoadingUsers: false});
                 }

@@ -17,7 +17,7 @@ const LoginPage = () => {
     email: "",
   });
 
-  const {login, isLoggingIn, error} = useAuthStore();
+  const {login, isLoggingIn} = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +82,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              {error ?? <p className='text-red-500'>{error}</p>}
+              {/* {error ?? <p className='text-red-500'>{error}</p>} */}
 
               
               <button 

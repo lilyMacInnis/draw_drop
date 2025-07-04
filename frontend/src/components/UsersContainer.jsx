@@ -1,18 +1,34 @@
 import React from 'react'
 import Loading from './Loading';
+import SearchIcon from '@mui/icons-material/Search';
 
 const UsersContainer = (props) => {
   if(props.isLoadingUsers){
     return(
         <Loading text='Fetching Users...'/>
     )
-  }
+  };
+
+  if(props.search.length == 0){
+    return(
+      <div className='flex items-center justify-center text-textl/30 pt-10'>
+        <SearchIcon fontSize='text-3xl' className='text-5xl pr-3'/>
+        <div className='text-2xl'>Search for a User</div>
+      </div>
+    )
+  };
+
+  if(props.search.length != 0 && props.users.length == 0){
+    return (
+      <div className='flex items-center justify-center text-textl/30 pt-10'>
+        <div className='text-2xl'>"{props.search}" was not found</div>
+      </div>
+    )
+  };
 
   return (
     <div className='pt-5'>
-        {props.users.filter((user) => {
-          return props.search.toLowerCase() === '' ? user : user.userName.toLowerCase().includes(props.search) || user.email.toLowerCase().includes(props.search);
-        }).map((user) => (
+        {props.users.map((user) => (
             <div className='flex flex-row' key = {user._id}>
               <button
                 onClick={() => props.handleClick(user)}

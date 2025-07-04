@@ -39,13 +39,15 @@ const ProfilePage = () => {
       const base64Image = reader.result;
       setSelectedImage(base64Image);
 
-      try{
-        await updateProfilePic({ profilePic: base64Image });
-        toast.success("Profile updated");
-      } catch (error){
-        console.log("Error in update profile pic: ", error);
-        toast.error("Something went wrong: " + error);
-      }
+      await updateProfilePic({ profilePic: base64Image });
+      toast.success("Profile updated");
+
+      // try{
+        
+      // } catch (error){
+      //   console.log("Error in update profile pic: ", error);
+      //   toast.error("Something went wrong: " + error);
+      // }
       
     };
   };
