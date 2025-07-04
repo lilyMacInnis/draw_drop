@@ -66,11 +66,11 @@ const ProfilePage = () => {
               />
               <label
                 htmlFor="avatar-upload"
-                className={`absolute bottom-0 right-0 hover:scale-105 p-2 rounded-full cursor-pointer transition-all duration-200 ${
-                  isUpdatingProfilePic ? "animate-pulse pointer-events-none" : ""
+                className={`absolute  bottom-0 right-0 size-32 hover:bg-black/30 p-2  rounded-full cursor-pointer transition-all duration-200 ${
+                  isUpdatingProfilePic ? "pointer-events-none" : ""
                 }`}
               >
-                <AddAPhotoOutlinedIcon className="size-5 bg-accent text-white rounded-xl p-1" />
+                <AddAPhotoOutlinedIcon fontSize='text-7xl' className="absolute text-opacity-0 hover:text-opacity-100 text-white bottom-4 right-4 text-8xl p-2" />
                 <input
                   type="file"
                   id="avatar-upload"
@@ -82,11 +82,7 @@ const ProfilePage = () => {
               </label>
             </div>
 
-            <p className="text-xs sm:text-sm text-textl text-center px-2">
-              {isUpdatingProfilePic
-                ? "Uploading..."
-                : "Click the camera icon to update your profile image"}
-            </p>
+            
           </div>
 
           <div className="space-y-4 sm:space-y-6 w-full">
@@ -118,7 +114,7 @@ const ProfilePage = () => {
               }
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 transition-all duration-200">
               <label className="text-sm text-textl">Email:</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none text-primary">
