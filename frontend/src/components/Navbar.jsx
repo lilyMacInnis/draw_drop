@@ -29,8 +29,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-full">
 
           <Link to="/" className="flex items-center gap-2.5">
-            <h1 className="size-10 text-2xl font-extrabold text-primary hover:text-primaryl rounded-lg flex items-center justify-center">
-              Logo
+            <h1 className="size-10 text-2xl font-extrabold text-primary pl-14 hover:text-primaryl rounded-lg flex items-center justify-center">
+              DrawBox
             </h1>
           </Link>
 

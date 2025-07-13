@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import UsersContainer from '../components/UsersContainer';
 
 const SearchPage = () => {
-  const {users, isLoadingUsers, searchUsers, setSelectedUser} = useDrawStore();
+  const {users, isLoadingUsers, searchUsers, setSelectedUser, getUsers} = useDrawStore();
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
@@ -14,8 +14,10 @@ const SearchPage = () => {
   useEffect( () => {
     if(search.length > 0){
       searchUsers(search);
+    } else {
+      getUsers();
     }
-  }, [searchUsers, search]);
+  }, [searchUsers, search, getUsers]);
 
   const handleClick = (user) => {
     setSelectedUser(user);

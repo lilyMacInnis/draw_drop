@@ -35,8 +35,16 @@ const SentContainer = () => {
     )
   };
 
+  if(drawingsFromUser.length < 1){
+    return(
+        <div className='h-screen w-screen bg-background flex items-center justify-center text-xl text-textl/50'>
+            No drawings... :{'('}
+        </div>
+    )
+  };
+
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
+    <div className='h-screen w-screen bg-background grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
       {reversedDrawingsToUser.map((drawing) => (
         <div key={drawing._id}>
             {/* <Drawing

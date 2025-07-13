@@ -35,80 +35,90 @@ const InboxContainer = () => {
     )
   };
 
+  if(drawingsToUser.length < 1){
+    return(
+        <div className='h-screen w-screen bg-background flex items-center justify-center text-xl text-textl/50'>
+            No drawings... :{'('}
+        </div>
+    )
+  };
+
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
-      {reversedDrawingsToUser.map((drawing) => (
-        <div key={drawing._id}>
-            {/* <Drawing
-                drawing={drawing}
-                isInSent={false}
-            /> */}
+    <div className='h-full w-full bg-background bg-repeat'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 pb-60 items-center'>
+        {reversedDrawingsToUser.map((drawing) => (
+            <div key={drawing._id}>
+                {/* <Drawing
+                    drawing={drawing}
+                    isInSent={false}
+                /> */}
 
-            <div className='flex flex-col'>
-                <div>
-                    {
-                        (drawing.senderId) && (
+                <div className='flex flex-col'>
+                    <div>
+                        {
+                            (drawing.senderId) && (
 
-                            (drawing.senderId == authUser._id) ? (
-                                <>
-                                    <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
-                                        Sent by: You
-                                    </div>
-                                </>
-                            ) : (
-                                (!drawing.isAnon) && (
+                                (drawing.senderId == authUser._id) ? (
                                     <>
                                         <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
-                                            Sent by: <Link className='text-primary hover:underline' to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link>
+                                            Sent by: You
                                         </div>
                                     </>
+                                ) : (
+                                    (!drawing.isAnon) && (
+                                        <>
+                                            <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                                Sent by: <Link className='text-primary hover:underline' to={`/send/${drawing.senderId}`}>{drawing.senderUserName}</Link>
+                                            </div>
+                                        </>
+                                    )
                                 )
                             )
-                        )
-                    }
-                </div>
-                
-                <div className='text-textl'>
-                    {
-                        drawing.image ? (
-                            <>
-                                <img
-                                    src={drawing.image}
-                                    alt="drawing"
-                                    className={`w-full ${
-                                        (drawing.senderId && !drawing.isAnon) || (drawing.senderId == authUser._id) ? (
-                                            `border-x-2 border-primary`
-                                        ) : (
-                                            `border-x-2 border-t-2 border-primary rounded-t-lg`
-                                        )
-                                    }`}
-                                />
-                            </>
-                        ) : (
-                            <>
-                                Image url failed to send
-                            </>
-                        )
-                    }
-                </div>
-                
-                <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
-                    <div className='text-textl'>
-                        {formatDate(new Date(drawing.createdAt))}
+                        }
                     </div>
+                    
+                    <div className='text-textl'>
+                        {
+                            drawing.image ? (
+                                <>
+                                    <img
+                                        src={drawing.image}
+                                        alt="drawing"
+                                        className={`w-full ${
+                                            (drawing.senderId && !drawing.isAnon) || (drawing.senderId == authUser._id) ? (
+                                                `border-x-2 border-primary`
+                                            ) : (
+                                                `border-x-2 border-t-2 border-primary rounded-t-lg`
+                                            )
+                                        }`}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    Image url failed to send
+                                </>
+                            )
+                        }
+                    </div>
+                    
+                    <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
+                        <div className='text-textl'>
+                            {formatDate(new Date(drawing.createdAt))}
+                        </div>
 
-                    <div>
-                        {/* <button className='text-primary hover:text-primaryl' >
-                            <SaveIcon />
-                        </button> */}
-                        <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
-                            <DeleteOutlineIcon />
-                        </button>
+                        <div>
+                            {/* <button className='text-primary hover:text-primaryl' >
+                                <SaveIcon />
+                            </button> */}
+                            <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
+                                <DeleteOutlineIcon />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+        ))}
         </div>
-      ))}
     </div>
   )
 }

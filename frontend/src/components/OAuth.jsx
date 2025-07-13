@@ -22,7 +22,7 @@ const OAuth = (props) => {
             email: googleResults.user.email,
             profilePic: googleResults.user.photoURL,
         });
-        toast.success("Signed up successfully");
+        toast.success("Signed in successfully");
     } catch (error){
         console.log(error);
         return toast.error("Something went wrong: " + error);
