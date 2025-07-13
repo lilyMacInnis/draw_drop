@@ -15,12 +15,16 @@
     "@mui/icons-material": "^7.1.1",
     "@mui/material": "^7.1.1",
     "axios": "^1.9.0",
+    "build": "^0.1.4",
     "date-fns": "^4.1.0",
+    "draw_box": "file:..",
     "firebase": "^11.10.0",
+    "npm": "^11.4.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "react-router": "^7.6.2",
+    "run": "^1.5.0",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
