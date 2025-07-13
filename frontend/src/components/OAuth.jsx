@@ -17,7 +17,12 @@ const OAuth = (props) => {
 
     try{
         const googleResults = await signInWithPopup(auth, provider);
-        await signupWithGoogle(googleResults);
+        await signupWithGoogle({
+            username: googleResults.user.displayName,
+            email: googleResults.user.email,
+            profilePic: googleResults.user.photoURL
+        });
+        toast.success("Signed up successfully");
     } catch (error){
         console.log(error);
         return toast.error("Something went wrong: " + error);

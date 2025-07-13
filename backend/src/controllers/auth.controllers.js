@@ -41,6 +41,7 @@ export const signup = async (req, res) => {
                 _id: newUser._id,
                 userName: newUser.userName,
                 email: newUser.email,
+                profilePic: newUser.profilePic,
             });
         } else{
             res.status(400).json({message: "Invalid user data"});
@@ -72,6 +73,7 @@ export const login = async (req, res) => {
             _id: user._id,
             userName: user.userName,
             email: user.email,
+            profilePic: user.profilePic,
         });
     } catch (error){
         console.log("Error in login controller", error.message);
@@ -86,6 +88,54 @@ export const logout = (req, res) => {
         res.status(200).json({message: "Logged out successfully"});
     }catch (error) {
         console.log("Error in logout controller", error.message);
+        res.status(500).json({message: "Internal Server Error"});
+    }
+};
+
+export const google = async (req, res) => {
+    const { username, email, profilePic } = req.body;
+
+    try{
+        const user = await User.findOne({email});
+
+        if(user){
+            generateToken(user._id, res);
+            
+            res.status(200).json({
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
+            });
+        } else{
+            const generatedPassword = Math.round().toString(36).slice(-8) + Math.round().toString(36).slice(-8);
+
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(generatedPassword, salt);
+
+            const newUser = new User ({
+                username,
+                email,
+                password: hashedPassword,
+                profilePic: profilePic,
+            });
+
+            if(newUser){
+                generateToken(newUser._id, res); // generate jwt token
+                await newUser.save(); //save user to db
+
+                res.status(201).json({
+                    _id: newUser._id,
+                    userName: newUser.userName,
+                    email: newUser.email,
+                    profilePic: newUser.profilePic,
+                });
+            } else{
+                res.status(400).json({message: "Invalid user data"});
+            }
+        }
+
+    } catch (error){
+        console.log("Error in google controller", error.message);
         res.status(500).json({message: "Internal Server Error"});
     }
 };
