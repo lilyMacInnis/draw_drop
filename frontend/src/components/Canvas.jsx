@@ -46,61 +46,70 @@ export default function Canvas() {
   }, [dimensions, id]);
 
   useEffect(() => {
-  const canvas = canvasRef.current;
-  const ctx = canvas.getContext('2d');
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let lastTouchPos = { x: 0, y: 0 };
 
-  let drawing = false;
-
-  const getTouchPos = (e) => {
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x: e.touches[0].clientX - rect.left,
-      y: e.touches[0].clientY - rect.top,
+    const getTouchPos = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top,
+      };
     };
-  };
 
-  const handleTouchStart = (e) => {
-    e.preventDefault(); // Prevent scrolling
-    drawing = true;
+    const handleTouchStart = (e) => {
+      e.preventDefault();
+      const pos = getTouchPos(e);
 
-    const pos = getTouchPos(e);
+      if (isPickingColor) {
+        const color = getColor({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
+        setBrushColor(color);
+        setIsPickingColor(false);
+        return;
+      }
 
-    // Set current brush color and size
-    ctx.strokeStyle = brushColor;
-    ctx.lineWidth = brushSize;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      setUndoStack((prev) => [...prev, imageData]);
+      setRedoStack([]);
 
-    ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
-  };
+      drawing = true;
+      lastTouchPos = pos;
 
-  const handleTouchMove = (e) => {
-    if (!drawing) return;
+      ctx.strokeStyle = brushColor;
+      ctx.lineWidth = brushSize;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    };
 
-    const pos = getTouchPos(e);
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-  };
+    const handleTouchMove = (e) => {
+      if (!drawing) return;
+      const pos = getTouchPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      lastTouchPos = pos;
+    };
 
-  const handleTouchEnd = () => {
-    drawing = false;
-    ctx.closePath();
-  };
+    const handleTouchEnd = () => {
+      if (drawing) {
+        ctx.closePath();
+        saveToLocalStorage();
+      }
+      drawing = false;
+    };
 
-  // Attach listeners
-  canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-  canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-  canvas.addEventListener('touchend', handleTouchEnd);
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvas.addEventListener('touchend', handleTouchEnd);
 
-  return () => {
-    canvas.removeEventListener('touchstart', handleTouchStart);
-    canvas.removeEventListener('touchmove', handleTouchMove);
-    canvas.removeEventListener('touchend', handleTouchEnd);
-  };
-}, [brushColor, brushSize]); // <-- re-run if brush settings change
-
-
+    return () => {
+      canvas.removeEventListener('touchstart', handleTouchStart);
+      canvas.removeEventListener('touchmove', handleTouchMove);
+      canvas.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [brushColor, brushSize, isPickingColor]);
 
   const startDrawing = (e) => {
     setCanvasCleared(false);
@@ -189,25 +198,35 @@ export default function Canvas() {
     saveToLocalStorage();
   };
 
-  const getColor = (e) => {
+  const getColor = ({ clientX, clientY }) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
     const imageData = ctx.getImageData(x, y, 1, 1).data;
     const [r, g, b] = imageData;
-    const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b)
-      .toString(16)
-      .slice(1)}`;
-    return hex;
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
   };
+
 
   const pickColor = (e) => {
     const color = getColor(e);
     setBrushColor(color);
     setIsPickingColor(false);
   };
+
+  // const handleTouchColorPick = (e) => {
+  //   if (!isPickingColor) return;
+  //   const touch = e.touches[0];
+  //   const rect = canvasRef.current.getBoundingClientRect();
+  //   const clientX = touch.clientX - rect.left;
+  //   const clientY = touch.clientY - rect.top;
+  //   const color = getColor({ clientX, clientY });
+  //   setBrushColor(color);
+  //   setIsPickingColor(false);
+  // };
+
 
   const handleSendDrawing = async (e) => {
     e.preventDefault();
