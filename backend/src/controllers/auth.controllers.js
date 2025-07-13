@@ -113,7 +113,7 @@ export const google = async (req, res) => {
             const hashedPassword = await bcrypt.hash(generatedPassword, salt);
 
             const newUser = new User ({
-                username,
+                userName: username,
                 email,
                 password: hashedPassword,
                 profilePic: profilePic,

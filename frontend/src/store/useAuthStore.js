@@ -52,7 +52,7 @@ export const useAuthStore = create(
         set({isSigningUp: true});
 
         try{
-          const response = await axiosInstance.post("/auth/Google", data);
+          const response = await axiosInstance.post("/auth/google", data);
           set({authUser: response.data});
         } catch (error){
           console.log("Error in GoogleSignup in authStore: ", error.response.data.message);

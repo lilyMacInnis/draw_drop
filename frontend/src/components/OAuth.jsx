@@ -20,7 +20,7 @@ const OAuth = (props) => {
         await signupWithGoogle({
             username: googleResults.user.displayName,
             email: googleResults.user.email,
-            profilePic: googleResults.user.photoURL
+            profilePic: googleResults.user.photoURL,
         });
         toast.success("Signed up successfully");
     } catch (error){
@@ -32,21 +32,24 @@ const OAuth = (props) => {
 
   return (
     <div className='w-full flex flex-col gap-3 mt-2'>
-        <button type='button'
+        <button 
+            type='button'
+            onClick={handleGoogleClick}
             className='bg-bgUltra text-textPrimary text-lg font-semibold w-full border-2 border-accent hover:bg-accent hover:text-white rounded-lg p-1'
         >
             <GoogleIcon className='mb-1 mr-2'/>
             {props.text} with Google
         </button>
 
-        <button 
+        {/*TODO implement twitter sign in */}
+        {/*<button 
             type='button'
-            onClick={handleGoogleClick}
+            onClick={handleTwitterClick}
             className='bg-bgUltra text-textPrimary text-lg font-semibold w-full border-2 border-accent hover:bg-accent hover:text-white rounded-lg p-1'
         >
             <TwitterIcon className='mb-1 mr-2'/>
             {props.text} with Twitter
-        </button>
+        </button>*/}
     </div>
   )
 }
