@@ -75,6 +75,7 @@ export default function Canvas() {
       setRedoStack([]);
 
       drawing = true;
+      setCanvasCleared(false);
       lastTouchPos = pos;
 
       ctx.strokeStyle = brushColor;
@@ -298,34 +299,34 @@ export default function Canvas() {
           className=''
       />
 
-      <div className={`${authUser ? ( `translate-y-[91vh]`
-        // (window.innerWidth > window.innerHeight) ? (
-        //   `translate-y-[91vh]`
-        // ) : (
-        //   (dimensions.width == dimensions.height) ? (
-        //     `translate-y-[82vh]`
-        //   ) : (
-        //     (dimensions.width > dimensions.height) ? (
-        //       `translate-y-[65.75vh]`
-        //     ) : (
-        //       `translate-y-[106.1vh]`
-        //     )
-        //   )
-        // )
-      ) : ( `translate-y-[85.75vh]`
-        // (window.innerWidth > window.innerHeight) ? (
-        //   `translate-y-[85.75vh]`
-        // ) : (
-        //   (dimensions.width == dimensions.height) ? (
-        //     `translate-y-[76.25vh]`
-        //   ) : (
-        //     (dimensions.width > dimensions.height) ? (
-        //       `translate-y-[60vh]`
-        //     ) : (
-        //       `translate-y-[100.3vh]`
-        //     )
-        //   )
-        // )
+      <div className={`${authUser ? (
+        (window.innerWidth > window.innerHeight) ? (
+          `translate-y-[91vh]`
+        ) : (
+          (dimensions.width == dimensions.height) ? (
+            `translate-y-[75vh]`
+          ) : (
+            (dimensions.width > dimensions.height) ? (
+              `translate-y-[48vh]`
+            ) : (
+              `translate-y-[89vh]`
+            )
+          )
+        )
+      ) : (
+        (window.innerWidth > window.innerHeight) ? (
+          `translate-y-[85.75vh]`
+        ) : (
+          (dimensions.width == dimensions.height) ? (
+            `translate-y-[53vh]`
+          ) : (
+            (dimensions.width > dimensions.height) ? (
+              `translate-y-[43vh]`
+            ) : (
+              `translate-y-[83vh]`
+            )
+          )
+        )
       )
         
       }`}>
