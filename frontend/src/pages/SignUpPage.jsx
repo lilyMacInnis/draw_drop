@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from '../components/Input';
+import OAuth from '../components/OAuth';
 //import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 const SignUpPage = () => {
@@ -136,6 +137,8 @@ const SignUpPage = () => {
                   "Create Account"
                 )}
               </button>
+
+              <OAuth text="Sign in"/>
             </div>
 
           </form>

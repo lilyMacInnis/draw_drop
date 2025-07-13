@@ -9,6 +9,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import Input from '../components/Input';
 import toast from 'react-hot-toast';
+import OAuth from '../components/OAuth';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -99,6 +100,8 @@ const LoginPage = () => {
                   "Login"
                 )}
               </button>
+
+              <OAuth text="Login"/>
             </div>              
 
           </form>
