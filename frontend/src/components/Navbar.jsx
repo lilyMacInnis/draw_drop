@@ -30,7 +30,7 @@ const Navbar = () => {
 
           <Link to="/" className="flex items-center gap-2.5">
             <h1 className="size-10 text-2xl font-extrabold text-primary pl-14 hover:text-primaryl rounded-lg flex items-center justify-center">
-              DrawBox
+              DrawDrop
             </h1>
           </Link>
 
