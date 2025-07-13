@@ -44,69 +44,71 @@ const SentContainer = () => {
   };
 
   return (
-    <div className='h-screen w-screen bg-background grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 items-center'>
-      {reversedDrawingsToUser.map((drawing) => (
-        <div key={drawing._id}>
-            {/* <Drawing
-                drawing={drawing}
-                isInSent={false}
-            /> */}
+    <div className='h-full w-full bg-background bg-repeat'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 pb-96 items-center'>
+        {reversedDrawingsToUser.map((drawing) => (
+            <div key={drawing._id}>
+                {/* <Drawing
+                    drawing={drawing}
+                    isInSent={false}
+                /> */}
 
-            <div className='flex flex-col'>
-                <div>
-                    {
-                        (authUser._id == drawing.receiverId) ? (
-                            <>
-                                <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
-                                    Sent to: You
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
-                                    Sent to: <Link className='text-primary hover:underline' to={`/send/${drawing.receiverId}`}>{drawing.receiverUserName}</Link>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
-
-                <div className='text-textl'>
-                    {
-                        drawing.image ? (
-                            <>
-                                <img
-                                    src={drawing.image}
-                                    alt="drawing"
-                                    className='w-full border-x-2 border-primary'
-                                />
-                            </>
-                        ) : (
-                            <>
-                                Image url failed to send
-                            </>
-                        )
-                    }
-                    </div>
-
-                <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
-                    <div className='text-textl'>
-                        {formatDate(new Date(drawing.createdAt))}
-                    </div>
-
+                <div className='flex flex-col'>
                     <div>
-                        {/* <button className='text-primary hover:text-primaryl' >
-                            <SaveIcon />
-                        </button> */}
-                        <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
-                            <DeleteOutlineIcon />
-                        </button>
+                        {
+                            (authUser._id == drawing.receiverId) ? (
+                                <>
+                                    <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                        Sent to: You
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className='w-full bg-bgUltra border-2 border-primary text-textl rounded-t-lg px-2 py-1'>
+                                        Sent to: <Link className='text-primary hover:underline' to={`/send/${drawing.receiverId}`}>{drawing.receiverUserName}</Link>
+                                    </div>
+                                </>
+                            )
+                        }
                     </div>
-                </div>
 
+                    <div className='text-textl'>
+                        {
+                            drawing.image ? (
+                                <>
+                                    <img
+                                        src={drawing.image}
+                                        alt="drawing"
+                                        className='w-full border-x-2 border-primary'
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    Image url failed to send
+                                </>
+                            )
+                        }
+                        </div>
+
+                    <div className='flex justify-between bg-bgUltra border-2 border-primary rounded-b-lg px-2 py-1'>
+                        <div className='text-textl'>
+                            {formatDate(new Date(drawing.createdAt))}
+                        </div>
+
+                        <div>
+                            {/* <button className='text-primary hover:text-primaryl' >
+                                <SaveIcon />
+                            </button> */}
+                            <button className='text-red-600 hover:text-red-400' onClick={() => handleDelete(drawing._id)}>
+                                <DeleteOutlineIcon />
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+        ))}
         </div>
-      ))}
     </div>
   )
 }

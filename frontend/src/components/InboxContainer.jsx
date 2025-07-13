@@ -45,7 +45,7 @@ const InboxContainer = () => {
 
   return (
     <div className='h-full w-full bg-background bg-repeat'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 pb-60 items-center'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pr-7 pb-96 items-center'>
         {reversedDrawingsToUser.map((drawing) => (
             <div key={drawing._id}>
                 {/* <Drawing

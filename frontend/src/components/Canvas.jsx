@@ -304,12 +304,12 @@ export default function Canvas() {
           `translate-y-[91vh]`
         ) : (
           (dimensions.width == dimensions.height) ? (
-            `translate-y-[72vh]`
+            `translate-y-[70vh]`
           ) : (
             (dimensions.width > dimensions.height) ? (
-              `translate-y-[48vh]`
+              `translate-y-[47vh]`
             ) : (
-              `translate-y-[88vh]`
+              `translate-y-[87vh]`
             )
           )
         )
@@ -318,7 +318,7 @@ export default function Canvas() {
           `translate-y-[85.75vh]`
         ) : (
           (dimensions.width == dimensions.height) ? (
-            `translate-y-[56vh]`
+            `translate-y-[58vh]`
           ) : (
             (dimensions.width > dimensions.height) ? (
               `translate-y-[44vh]`
