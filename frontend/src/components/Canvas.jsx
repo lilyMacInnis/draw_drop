@@ -45,6 +45,63 @@ export default function Canvas() {
     prevIdRef.current = id;
   }, [dimensions, id]);
 
+  useEffect(() => {
+  const canvas = canvasRef.current;
+  const ctx = canvas.getContext('2d');
+
+  let drawing = false;
+
+  const getTouchPos = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top,
+    };
+  };
+
+  const handleTouchStart = (e) => {
+    e.preventDefault(); // Prevent scrolling
+    drawing = true;
+
+    const pos = getTouchPos(e);
+
+    // Set current brush color and size
+    ctx.strokeStyle = brushColor;
+    ctx.lineWidth = brushSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!drawing) return;
+
+    const pos = getTouchPos(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  };
+
+  const handleTouchEnd = () => {
+    drawing = false;
+    ctx.closePath();
+  };
+
+  // Attach listeners
+  canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+  canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+  canvas.addEventListener('touchend', handleTouchEnd);
+
+  return () => {
+    canvas.removeEventListener('touchstart', handleTouchStart);
+    canvas.removeEventListener('touchmove', handleTouchMove);
+    canvas.removeEventListener('touchend', handleTouchEnd);
+  };
+}, [brushColor, brushSize]); // <-- re-run if brush settings change
+
+
+
   const startDrawing = (e) => {
     setCanvasCleared(false);
     const canvas = canvasRef.current;
