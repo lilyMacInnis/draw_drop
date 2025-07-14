@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import OAuth from '../components/OAuth';
 
 const LoginPage = () => {
+  const { authUser } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     password: "",
@@ -25,7 +26,11 @@ const LoginPage = () => {
     
     try{
       await login(formData);
-      toast.success("Logged in successfully");
+      if(authUser){
+        toast.success("Logged in successfully");
+      } else{
+        toast.error("Invalid credentials");
+      }
     } catch(error){
       console.log("Error in login handlesubmit: ", error);
        toast.error("Something went wrong: " + error);

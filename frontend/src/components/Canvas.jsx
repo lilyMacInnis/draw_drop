@@ -88,10 +88,14 @@ export default function Canvas() {
     const handleTouchMove = (e) => {
       if (!drawing) return;
       const pos = getTouchPos(e);
+
       ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
-      lastTouchPos = pos;
+
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
     };
+
 
     const handleTouchEnd = () => {
       if (drawing) {
@@ -318,7 +322,7 @@ export default function Canvas() {
           `translate-y-[85.75vh]`
         ) : (
           (dimensions.width == dimensions.height) ? (
-            `translate-y-[58vh]`
+            `translate-y-[59vh]`
           ) : (
             (dimensions.width > dimensions.height) ? (
               `translate-y-[44vh]`
