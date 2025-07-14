@@ -132,15 +132,14 @@ const ToolBar = (props) => {
 
                 <button 
                     onClick={() => props.setIsPickingColor(!props.isPickingColor)}
-                    className=""
                 >
-                    <ColorizeOutlinedIcon className='text-primary hover:text-primaryl'/>
+                    <ColorizeOutlinedIcon className={props.isPickingColor ? (`text-primaryl`) : (`text-primary hover:text-primaryl`)}/>
                 </button>
                 
                 <label className="flex items-center text-sm font-medium pr-5">
                     <div
                         className="size-6 rounded-full border border-textl/70 cursor-pointer"
-                        style={{ backgroundColor: props.brushColor }}
+                        style={{ backgroundColor: props.isPickingColor ? (props.hoverColor) : (props.brushColor)}}
                     >
                         <input
                             type="color"
