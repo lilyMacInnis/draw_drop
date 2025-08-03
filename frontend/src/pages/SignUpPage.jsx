@@ -138,7 +138,7 @@ const SignUpPage = () => {
                 )}
               </button>
 
-              <OAuth text="Sign in"/>
+              {/* <OAuth text="Sign in"/> */}
             </div>
 
           </form>

@@ -106,7 +106,7 @@ const LoginPage = () => {
                 )}
               </button>
 
-              <OAuth text="Login"/>
+              {/* <OAuth text="Login"/> */}
             </div>              
 
           </form>
