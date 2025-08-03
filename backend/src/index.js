@@ -20,11 +20,12 @@ if(process.env.NODE_ENV !== "production"){
         origin: "http://localhost:5173",
         credentials: true
     }));
-}
+};
+//Content-Security-Policy: The page’s settings blocked a script (script-src-elem) at https://apis.google.com/js/api.js?onload=__iframefcb5172 from being executed because it violates the following directive: “default-src 'self'” index-Dz-sRWe5.js:1628:1099
 app.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
+    "default-src 'self'; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://apis.google.com/js/api.js;"
   );
   next();
 });
