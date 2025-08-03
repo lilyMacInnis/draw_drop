@@ -25,7 +25,7 @@ if(process.env.NODE_ENV !== "production"){
 app.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self' https://apis.google.com/js/api.js; script-src 'self' https://apis.google.com/js/api.js; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://apis.google.com/js/api.js;"
+    "default-src *; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
   );
   next();
 });
